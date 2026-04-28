@@ -58,7 +58,7 @@ export function ChaletDetail() {
         {/* Left column */}
         <div className="lg:col-span-2 space-y-6">
           {/* Gallery */}
-          <div className="space-y-2">
+          <div data-aos="fade-up" className="space-y-2">
             <div className="aspect-video rounded-2xl overflow-hidden bg-gray-100">
               <img
                 src={chalet.images[activeImage]}
@@ -100,6 +100,23 @@ export function ChaletDetail() {
               </div>
             </div>
 
+            {/* Photo gallery */}
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">{lang === 'ar' ? 'معرض الصور' : 'Photo Gallery'}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {chalet.images.map((img, index) => (
+                  <div key={index} className="rounded-3xl overflow-hidden bg-gray-100 border border-gray-200">
+                    <img
+                      src={img}
+                      alt={`${chalet.name[lang]} photo ${index + 1}`}
+                      className="w-full h-64 object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Quick stats */}
             <div className="flex flex-wrap gap-4 py-4 border-y border-gray-100 mb-4">
               {[
@@ -118,7 +135,7 @@ export function ChaletDetail() {
           </div>
 
           {/* Bedrooms */}
-          <div>
+          <div data-aos="fade-up">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Bedrooms</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {chalet.bedrooms.map((bed, i) => (
@@ -135,7 +152,7 @@ export function ChaletDetail() {
           </div>
 
           {/* Amenities */}
-          <div>
+          <div data-aos="fade-up">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Amenities</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {chalet.amenities.map((amenityId) => {
@@ -154,7 +171,7 @@ export function ChaletDetail() {
           </div>
 
           {/* Cancellation policy */}
-          <div className="bg-amber-50 rounded-2xl p-4 border border-amber-200">
+          <div data-aos="fade-up" className="bg-amber-50 rounded-2xl p-4 border border-amber-200">
             <h2 className="font-semibold text-amber-800 mb-1">Cancellation Policy</h2>
             <p className="text-amber-700 text-sm">{cancelLabel}</p>
           </div>
@@ -183,7 +200,7 @@ export function ChaletDetail() {
           )}
 
           {/* Map placeholder */}
-          <div>
+          <div data-aos="fade-up">
             <h2 className="text-lg font-semibold text-gray-900 mb-3">Location</h2>
             <div className="rounded-2xl overflow-hidden bg-gray-100 h-[200px] flex items-center justify-center text-gray-400">
               <a
@@ -200,7 +217,7 @@ export function ChaletDetail() {
         </div>
 
         {/* Right column – booking card */}
-        <div className="lg:col-span-1">
+        <div data-aos="fade-up" className="lg:col-span-1">
           <div className="sticky top-24 bg-white rounded-2xl border border-gray-200 shadow-md p-5 space-y-4">
             <div>
               <span className="text-3xl font-bold text-gold-600">{chalet.basePrice.toLocaleString()}</span>

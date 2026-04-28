@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Search, Star, Shield, Clock, Award, ChevronRight, MapPin } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { ChaletCard } from '../components/chalets/ChaletCard';
@@ -39,15 +40,26 @@ export function Home() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative min-h-[600px] flex items-center bg-navy-900 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1566073771259-470ef1c0aabc?w=1400&q=80')" }}
+      <section data-aos="fade-up" className="relative min-h-[600px] flex items-center overflow-hidden bg-black">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          src="https://www.pexels.com/download/video/3970964/"
+          poster="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=80"
+          autoPlay
+          muted
+          loop
+          playsInline
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-900/90 to-navy-900/50" />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-black/25" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
-          <div className="max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: 'easeOut' }}
+            className="max-w-2xl"
+          >
             <div className="inline-flex items-center gap-2 bg-gold-500/20 text-gold-300 text-sm font-medium px-4 py-2 rounded-full mb-6">
               <MapPin size={14} /> Al-Fakhama Resort, Saudi Arabia
             </div>
@@ -99,12 +111,12 @@ export function Home() {
                 {t('home.hero_search_btn')}
               </Button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Stats bar */}
-      <div className="bg-gold-500 py-4">
+      <div data-aos="fade-up" className="bg-gold-500 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             {[
@@ -123,7 +135,7 @@ export function Home() {
       </div>
 
       {/* Featured chalets */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section data-aos="fade-up" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex items-end justify-between mb-10">
           <div>
             <h2 className="text-3xl font-bold text-gray-900">{t('home.featured_title')}</h2>
@@ -146,7 +158,7 @@ export function Home() {
       </section>
 
       {/* Why choose us */}
-      <section className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+      <section data-aos="fade-up" className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">{t('home.why_title')}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -164,7 +176,7 @@ export function Home() {
       </section>
 
       {/* CTA banner */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section data-aos="fade-up" className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto bg-navy-800 rounded-3xl overflow-hidden relative text-center py-16 px-8">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=60')", backgroundSize: 'cover' }} />
           <div className="relative">

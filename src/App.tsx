@@ -1,5 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import AOS from "aos";
+import 'aos/dist/aos.css';
 import { Layout } from './components/layout/Layout';
 import { AdminLayout } from './components/layout/AdminLayout';
 import { Home } from './pages/Home';
@@ -19,6 +22,52 @@ import { ManageUsers } from './pages/admin/ManageUsers';
 import { ManagePromotions } from './pages/admin/ManagePromotions';
 import { NotFound } from './pages/NotFound';
 
+function AppRouter() {
+  const location = useLocation();
+
+  useEffect(() => {
+    AOS.init({
+      duration: 900,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 120,
+      mirror: false,
+    });
+  }, []);
+
+  useEffect(() => {
+    AOS.refresh();
+  }, [location.pathname]);
+
+  return (
+    <Routes>
+      {/* Public routes */}
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/chalets" element={<Chalets />} />
+        <Route path="/chalets/:id" element={<ChaletDetail />} />
+        <Route path="/booking/:chaletId" element={<Booking />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/confirmation/:bookingId" element={<Confirmation />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+
+      {/* Admin routes */}
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<AdminDashboard />} />
+        <Route path="bookings" element={<ManageBookings />} />
+        <Route path="chalets" element={<ManageChalets />} />
+        <Route path="pricing" element={<ManagePricing />} />
+        <Route path="users" element={<ManageUsers />} />
+        <Route path="promotions" element={<ManagePromotions />} />
+      </Route>
+    </Routes>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -30,31 +79,7 @@ export default function App() {
           success: { iconTheme: { primary: '#c9921f', secondary: '#fff' } },
         }}
       />
-      <Routes>
-        {/* Public routes */}
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/chalets" element={<Chalets />} />
-          <Route path="/chalets/:id" element={<ChaletDetail />} />
-          <Route path="/booking/:chaletId" element={<Booking />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/confirmation/:bookingId" element={<Confirmation />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-
-        {/* Admin routes */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="bookings" element={<ManageBookings />} />
-          <Route path="chalets" element={<ManageChalets />} />
-          <Route path="pricing" element={<ManagePricing />} />
-          <Route path="users" element={<ManageUsers />} />
-          <Route path="promotions" element={<ManagePromotions />} />
-        </Route>
-      </Routes>
+      <AppRouter />
     </BrowserRouter>
   );
 }

@@ -1,6 +1,6 @@
 import type { Chalet } from '../types';
 
-const BASE = 'https://images.unsplash.com/photo-';
+const BASE = 'https://images.pexels.com/photos/';
 
 export const chalets: Chalet[] = [
   // ─── NORMAL (5) ───────────────────────────────────────────────
@@ -14,9 +14,9 @@ export const chalets: Chalet[] = [
     type: 'normal',
     basePrice: 550,
     images: [
-      `${BASE}1512917728603-386360010bdb?w=900&q=80`,
-      `${BASE}1499916078935-a4de869fa7f6?w=900&q=80`,
-      `${BASE}1558618666-fcd25c85cd64?w=900&q=80`,
+      `${BASE}34763215/pexels-photo-34763215.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}33636637/pexels-photo-33636637.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34496702/pexels-photo-34496702.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -53,9 +53,9 @@ export const chalets: Chalet[] = [
     type: 'normal',
     basePrice: 600,
     images: [
-      `${BASE}1613977257363-707ba9578f43?w=900&q=80`,
-      `${BASE}1564013799919-ab600027ffc6?w=900&q=80`,
-      `${BASE}1582719478250-c89cae4dc1d9?w=900&q=80`,
+      `${BASE}36916378/pexels-photo-36916378.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}30898458/pexels-photo-30898458.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}32021575/pexels-photo-32021575.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -92,9 +92,9 @@ export const chalets: Chalet[] = [
     type: 'normal',
     basePrice: 500,
     images: [
-      `${BASE}1571896349842-33c89424de2d?w=900&q=80`,
-      `${BASE}1507089947368-19c1da9775ae?w=900&q=80`,
-      `${BASE}1555041469-a586c61ea9bc?w=900&q=80`,
+      `${BASE}36852532/pexels-photo-36852532.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36852544/pexels-photo-36852544.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34496701/pexels-photo-34496701.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -129,9 +129,9 @@ export const chalets: Chalet[] = [
     type: 'normal',
     basePrice: 580,
     images: [
-      `${BASE}1551882547-090dbfa5ffe5?w=900&q=80`,
-      `${BASE}1600596542815-ffad4c1539a9?w=900&q=80`,
-      `${BASE}1560448204-603b3fc33ddc?w=900&q=80`,
+      `${BASE}35857672/pexels-photo-35857672.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34618647/pexels-photo-34618647.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36486494/pexels-photo-36486494.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -166,9 +166,9 @@ export const chalets: Chalet[] = [
     type: 'normal',
     basePrice: 620,
     images: [
-      `${BASE}1600585154526-990dced4db0d?w=900&q=80`,
-      `${BASE}1615571022219-eb45cf311036?w=900&q=80`,
-      `${BASE}1493809842364-78817add7ffb?w=900&q=80`,
+      `${BASE}36852535/pexels-photo-36852535.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}19639205/pexels-photo-19639205.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34956629/pexels-photo-34956629.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -205,9 +205,9 @@ export const chalets: Chalet[] = [
     type: 'deluxe',
     basePrice: 1100,
     images: [
-      `${BASE}1566073771259-470ef1c0aabc?w=900&q=80`,
-      `${BASE}1578683994087-c2c4f43c9f93?w=900&q=80`,
-      `${BASE}1571003123894-1f0594d2b5d9?w=900&q=80`,
+      `${BASE}36767624/pexels-photo-36767624.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34790702/pexels-photo-34790702.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}33125906/pexels-photo-33125906.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -244,9 +244,9 @@ export const chalets: Chalet[] = [
     type: 'deluxe',
     basePrice: 1200,
     images: [
-      `${BASE}1527030280862-64139fba04ca?w=900&q=80`,
-      `${BASE}1618221195710-dd6b41faaea6?w=900&q=80`,
-      `${BASE}1631049307264-da0ec9d70304?w=900&q=80`,
+      `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36816426/pexels-photo-36816426.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}29000012/pexels-photo-29000012.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -283,9 +283,9 @@ export const chalets: Chalet[] = [
     type: 'deluxe',
     basePrice: 1150,
     images: [
-      `${BASE}1600596542815-ffad4c1539a9?w=900&q=80`,
-      `${BASE}1587061949409-02df41d1b000?w=900&q=80`,
-      `${BASE}1416949929422-a1d9c8fe84af?w=900&q=80`,
+      `${BASE}34618647/pexels-photo-34618647.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}28962539/pexels-photo-28962539.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34559240/pexels-photo-34559240.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -321,9 +321,9 @@ export const chalets: Chalet[] = [
     type: 'deluxe',
     basePrice: 1300,
     images: [
-      `${BASE}1613977257592-4a9b1d2e1234?w=900&q=80`,
-      `${BASE}1560185007-c5ca9d2c014d?w=900&q=80`,
-      `${BASE}1502672260266-1c1ef2d93688?w=900&q=80`,
+      `${BASE}35172686/pexels-photo-35172686.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}28238364/pexels-photo-28238364.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}33915746/pexels-photo-33915746.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -360,9 +360,9 @@ export const chalets: Chalet[] = [
     type: 'deluxe',
     basePrice: 1250,
     images: [
-      `${BASE}1600047509807-ba8f99d2cdde?w=900&q=80`,
-      `${BASE}1600210492493-0d9c9d3ef5f8?w=900&q=80`,
-      `${BASE}1592595896551-12b371d546d5?w=900&q=80`,
+      `${BASE}34618647/pexels-photo-34618647.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}29000012/pexels-photo-29000012.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}7821341/pexels-photo-7821341.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -400,9 +400,9 @@ export const chalets: Chalet[] = [
     type: 'vip',
     basePrice: 2500,
     images: [
-      `${BASE}1613553507393-d3e5b35f4e1a?w=900&q=80`,
-      `${BASE}1615874959144-ce74b20a2fd8?w=900&q=80`,
-      `${BASE}1600585154526-990dced4db0d?w=900&q=80`,
+      `${BASE}29000012/pexels-photo-29000012.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}11436776/pexels-photo-11436776.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36852535/pexels-photo-36852535.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -439,9 +439,9 @@ export const chalets: Chalet[] = [
     type: 'vip',
     basePrice: 2800,
     images: [
-      `${BASE}1600047509807-ba8f99d2cdde?w=900&q=80`,
-      `${BASE}1566073771259-470ef1c0aabc?w=900&q=80`,
-      `${BASE}1613977257363-707ba9578f43?w=900&q=80`,
+      `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36916378/pexels-photo-36916378.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -478,9 +478,9 @@ export const chalets: Chalet[] = [
     type: 'vip',
     basePrice: 2200,
     images: [
-      `${BASE}1582719478250-c89cae4dc1d9?w=900&q=80`,
-      `${BASE}1527030280862-64139fba04ca?w=900&q=80`,
-      `${BASE}1518780664697-55e3ad937233?w=900&q=80`,
+      `${BASE}32021575/pexels-photo-32021575.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36354955/pexels-photo-36354955.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -516,9 +516,9 @@ export const chalets: Chalet[] = [
     type: 'vip',
     basePrice: 2400,
     images: [
-      `${BASE}1564013799919-ab600027ffc6?w=900&q=80`,
-      `${BASE}1571896349842-33c89424de2d?w=900&q=80`,
-      `${BASE}1544984243-ec57e25e6f4d?w=900&q=80`,
+      `${BASE}30898458/pexels-photo-30898458.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36852532/pexels-photo-36852532.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}15394148/pexels-photo-15394148.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -555,9 +555,9 @@ export const chalets: Chalet[] = [
     type: 'vip',
     basePrice: 3000,
     images: [
-      `${BASE}1615874959144-ce74b20a2fd8?w=900&q=80`,
-      `${BASE}1613553507393-d3e5b35f4e1a?w=900&q=80`,
-      `${BASE}1600596542815-ffad4c1539a9?w=900&q=80`,
+      `${BASE}11436776/pexels-photo-11436776.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}32334253/pexels-photo-32334253.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34618647/pexels-photo-34618647.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },

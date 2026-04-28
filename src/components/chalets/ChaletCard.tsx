@@ -19,7 +19,10 @@ export function ChaletCard({ chalet, className }: ChaletCardProps) {
   const singleBedrooms = chalet.bedrooms.filter((b) => b.type === 'single').length;
 
   return (
-    <div className={cn('bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col', className)}>
+    <div
+      data-aos="fade-up"
+      className={cn('bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col', className)}
+    >
       {/* Image */}
       <div className="relative overflow-hidden aspect-[4/3]">
         <img
@@ -36,6 +39,13 @@ export function ChaletCard({ chalet, className }: ChaletCardProps) {
             ★ Featured
           </div>
         )}
+      </div>
+      <div className="grid grid-cols-3 gap-2 mt-3">
+        {chalet.images.slice(0, 3).map((img, index) => (
+          <div key={index} className="overflow-hidden rounded-xl bg-gray-100 border border-gray-200">
+            <img src={img} alt={`${name} preview ${index + 1}`} className="w-full h-24 object-cover" loading="lazy" />
+          </div>
+        ))}
       </div>
 
       {/* Body */}

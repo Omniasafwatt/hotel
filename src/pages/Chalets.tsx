@@ -11,13 +11,13 @@ export function Chalets() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Page header */}
-      <div className="mb-8">
+      <div data-aos="fade-down" className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">{t('chalets.title')}</h1>
         <p className="text-gray-500 mt-2">{t('chalets.subtitle')}</p>
       </div>
 
       {/* Filters */}
-      <div className="mb-8">
+      <div data-aos="fade-up" className="mb-8">
         <ChaletFilter />
       </div>
 
