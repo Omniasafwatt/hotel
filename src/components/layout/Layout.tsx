@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-import { MessageCircle } from 'lucide-react';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { WHATSAPP_NUMBER } from '../../utils/constants';
