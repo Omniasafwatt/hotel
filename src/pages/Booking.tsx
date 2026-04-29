@@ -16,7 +16,7 @@ import { Input, Textarea } from '../components/ui/Input';
 import { blockedDates } from '../data/blockedDates';
 import { calculatePricing } from '../utils/pricing';
 import { promotions } from '../data/promotions';
-import type { PricingBreakdown, Promotion } from '../types';
+import type { Promotion } from '../types';
 
 const guestSchema = z.object({
   firstName: z.string().min(2, 'Required'),

@@ -108,7 +108,7 @@ const bookingSlice = createSlice({
       state.draft.loyaltyPointsToRedeem = action.payload;
       saveDraftToLocalStorage(state.draft);
     },
-    setPricing(state, action: PayloadAction<PricingBreakdown>) {
+    setPricing(state, action: PayloadAction<PricingBreakdown | null>) {
       state.draft.pricing = action.payload;
       saveDraftToLocalStorage(state.draft);
     },
