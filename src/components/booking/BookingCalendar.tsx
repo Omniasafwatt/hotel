@@ -113,6 +113,7 @@ function BookingCalendarComponent({ chaletId, blockedDates, checkIn, checkOut, o
           return (
             <button
               key={date.toISOString()}
+              type="button"
               onClick={() => handleDayClick(date)}
               disabled={disabled}
               className={cn(

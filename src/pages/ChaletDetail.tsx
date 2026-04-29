@@ -134,6 +134,32 @@ export function ChaletDetail() {
             <p className="text-gray-600 leading-relaxed">{chalet.description[lang]}</p>
           </div>
 
+          {/* Property highlights — exact items from screenshot */}
+          <div data-aos="fade-up">
+            <div className="flex flex-wrap gap-3">
+              {[
+                { icon: LucideIcons.Home,              label: 'Houses' },
+                { icon: LucideIcons.UtensilsCrossed,   label: 'Kitchen' },
+                { icon: LucideIcons.Building2,         label: 'City view' },
+                { icon: LucideIcons.TreePine,          label: 'Garden' },
+                { icon: LucideIcons.Waves,             label: 'Swimming pool' },
+                { icon: LucideIcons.Flame,             label: 'BBQ facilities' },
+                { icon: LucideIcons.Wifi,              label: 'Free WiFi' },
+                { icon: LucideIcons.Umbrella,          label: 'Terrace' },
+                { icon: LucideIcons.LayoutPanelLeft,   label: 'Balcony' },
+                { icon: LucideIcons.Car,               label: 'Free parking' },
+              ].map(({ icon: Icon, label }) => (
+                <div
+                  key={label}
+                  className="flex items-center gap-2.5 border border-gray-200 rounded-xl px-4 py-3 bg-white text-sm text-gray-700 font-medium min-w-[140px]"
+                >
+                  <Icon size={18} className="text-gray-500 flex-shrink-0" />
+                  {label}
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Bedrooms */}
           <div data-aos="fade-up">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Bedrooms</h2>
@@ -199,26 +225,12 @@ export function ChaletDetail() {
             </div>
           )}
 
-          {/* Map placeholder */}
-          <div data-aos="fade-up">
-            <h2 className="text-lg font-semibold text-gray-900 mb-3">Location</h2>
-            <div className="rounded-2xl overflow-hidden bg-gray-100 h-[200px] flex items-center justify-center text-gray-400">
-              <a
-                href={`https://www.google.com/maps?q=${chalet.location.lat},${chalet.location.lng}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 hover:text-gold-600 transition-colors"
-              >
-                <MapPin size={32} />
-                <span className="text-sm">View on Google Maps</span>
-              </a>
-            </div>
-          </div>
         </div>
 
-        {/* Right column – booking card */}
-        <div data-aos="fade-up" className="lg:col-span-1">
-          <div className="sticky top-24 bg-white rounded-2xl border border-gray-200 shadow-md p-5 space-y-4">
+        {/* Right column – booking card & map */}
+        <div className="lg:col-span-1 space-y-4">
+          {/* Booking card */}
+          <div data-aos="fade-up" className="sticky top-24 z-50 bg-white rounded-2xl border border-gray-200 shadow-md p-5 space-y-4">
             <div>
               <span className="text-3xl font-bold text-gold-600">{chalet.basePrice.toLocaleString()}</span>
               <span className="text-gray-400 text-sm"> {t('common.sar')} {t('common.per_night')}</span>
@@ -242,6 +254,22 @@ export function ChaletDetail() {
                   <Star size={12} className="fill-gold-500 text-gold-500" /> {chalet.rating}
                 </span>
               </div>
+            </div>
+          </div>
+
+          {/* Map */}
+          <div data-aos="fade-up" className="bg-white rounded-2xl border border-gray-200 shadow-md p-5">
+            <h2 className="text-lg font-semibold text-gray-900 mb-3">Location</h2>
+            <div className="rounded-2xl overflow-hidden bg-gray-100 h-[300px] flex items-center justify-center text-gray-400">
+              <a
+                href={`https://www.google.com/maps?q=${chalet.location.lat},${chalet.location.lng}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-2 hover:text-gold-600 transition-colors"
+              >
+                <MapPin size={32} />
+                <span className="text-sm">View on Google Maps</span>
+              </a>
             </div>
           </div>
         </div>

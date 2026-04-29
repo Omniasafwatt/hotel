@@ -39,8 +39,15 @@ export function Booking() {
   const draft = useAppSelector((s) => s.booking.draft);
   const { user, isAuthenticated } = useAppSelector((s) => s.auth);
 
-  const [checkIn, setCheckIn] = useState<Date | null>(draft.checkIn ? parseISO(draft.checkIn) : null);
-  const [checkOut, setCheckOut] = useState<Date | null>(draft.checkOut ? parseISO(draft.checkOut) : null);
+  const sessionKey = `booking_dates_${chaletId}`;
+  const savedDates = (() => { try { return JSON.parse(sessionStorage.getItem(sessionKey) ?? 'null'); } catch { return null; } })();
+
+  const [checkIn, setCheckIn] = useState<Date | null>(
+    draft.checkIn ? parseISO(draft.checkIn) : savedDates?.checkIn ? parseISO(savedDates.checkIn) : null
+  );
+  const [checkOut, setCheckOut] = useState<Date | null>(
+    draft.checkOut ? parseISO(draft.checkOut) : savedDates?.checkOut ? parseISO(savedDates.checkOut) : null
+  );
   const [promoInput, setPromoInput] = useState('');
   const [appliedPromo, setAppliedPromo] = useState<Promotion | null>(null);
   const [loyaltyToRedeem, setLoyaltyToRedeem] = useState(0);
@@ -58,6 +65,14 @@ export function Booking() {
   useEffect(() => {
     if (chaletId) dispatch(startBooking({ chaletId }));
   }, [chaletId, dispatch]);
+
+  // Restore dates from sessionStorage into Redux so pricing recalculates after refresh
+  useEffect(() => {
+    if (checkIn && checkOut) {
+      dispatch(setDates({ checkIn: format(checkIn, 'yyyy-MM-dd'), checkOut: format(checkOut, 'yyyy-MM-dd') }));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (isAuthenticated && user) {
@@ -85,8 +100,7 @@ export function Booking() {
         loyaltyToRedeem
       );
       dispatch(setPricing(pricing));
-    } catch (e) {
-      console.error("Pricing calculation error:", e);
+    } catch {
       dispatch(setPricing(null));
     }
   }, [checkIn, checkOut, chalet, pricingRules, appliedPromo, loyaltyToRedeem, dispatch]);
@@ -94,10 +108,13 @@ export function Booking() {
   const handleCalendarSelect = useCallback((ci: Date, co: Date | null) => {
     setCheckIn(ci);
     setCheckOut(co);
+    const ciStr = format(ci, 'yyyy-MM-dd');
+    const coStr = co ? format(co, 'yyyy-MM-dd') : null;
+    sessionStorage.setItem(sessionKey, JSON.stringify({ checkIn: ciStr, checkOut: coStr }));
     if (ci && co) {
-      dispatch(setDates({ checkIn: format(ci, 'yyyy-MM-dd'), checkOut: format(co, 'yyyy-MM-dd') }));
+      dispatch(setDates({ checkIn: ciStr, checkOut: coStr! }));
     }
-  }, [dispatch]);
+  }, [dispatch, sessionKey]);
 
   const handleApplyPromo = useCallback(() => {
     const promo = promotions.find((p) => p.code === promoInput.toUpperCase() && p.isActive);
