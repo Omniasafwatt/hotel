@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback, useMemo, memo } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   format, startOfMonth, endOfMonth, eachDayOfInterval,
@@ -17,38 +17,42 @@ interface BookingCalendarProps {
   onSelect: (checkIn: Date, checkOut: Date | null) => void;
 }
 
-export function BookingCalendar({ chaletId, blockedDates, checkIn, checkOut, onSelect }: BookingCalendarProps) {
+function BookingCalendarComponent({ chaletId, blockedDates, checkIn, checkOut, onSelect }: BookingCalendarProps) {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
-  const today = startOfDay(new Date());
-  const monthStart = startOfMonth(currentMonth);
-  const monthEnd = endOfMonth(currentMonth);
-  const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
+  const today = useMemo(() => startOfDay(new Date()), []);
+  const monthStart = useMemo(() => startOfMonth(currentMonth), [currentMonth]);
+  const monthEnd = useMemo(() => endOfMonth(currentMonth), [currentMonth]);
+  const days = useMemo(() => eachDayOfInterval({ start: monthStart, end: monthEnd }), [monthStart, monthEnd]);
 
   // Pad to start on Sunday
   const startPad = monthStart.getDay();
-  const paddedDays: (Date | null)[] = [...Array(startPad).fill(null), ...days];
+  const paddedDays: (Date | null)[] = useMemo(() => [...Array(startPad).fill(null), ...days], [startPad, days]);
 
-  function isBlocked(date: Date): boolean {
-    return blockedDates.some((bd) => {
-      if (bd.chaletId !== chaletId) return false;
-      return isWithinInterval(date, {
+  const chaletBlockedDates = useMemo(() => 
+    blockedDates.filter(bd => bd.chaletId === chaletId),
+    [blockedDates, chaletId]
+  );
+
+  const isBlocked = useCallback((date: Date): boolean => {
+    return chaletBlockedDates.some((bd) =>
+      isWithinInterval(date, {
         start: parseISO(bd.startDate),
         end: parseISO(bd.endDate),
-      });
-    });
-  }
+      })
+    );
+  }, [chaletBlockedDates]);
 
-  function isDisabled(date: Date): boolean {
+  const isDisabled = useCallback((date: Date): boolean => {
     return isBefore(date, today) || isBlocked(date);
-  }
+  }, [today, isBlocked]);
 
-  function isInRange(date: Date): boolean {
+  const isInRange = useCallback((date: Date): boolean => {
     if (!checkIn || !checkOut) return false;
     return isWithinInterval(date, { start: checkIn, end: checkOut }) && !isSameDay(date, checkIn) && !isSameDay(date, checkOut);
-  }
+  }, [checkIn, checkOut]);
 
-  function handleDayClick(date: Date) {
+  const handleDayClick = useCallback((date: Date) => {
     if (isDisabled(date)) return;
     if (!checkIn || (checkIn && checkOut)) {
       onSelect(date, null);
@@ -59,15 +63,16 @@ export function BookingCalendar({ chaletId, blockedDates, checkIn, checkOut, onS
         onSelect(checkIn, date);
       }
     }
-  }
+  }, [checkIn, checkOut, isDisabled, onSelect]);
 
-  const isWeekend = (date: Date) => WEEKEND_DAYS.includes(date.getDay());
+  const isWeekend = useCallback((date: Date) => WEEKEND_DAYS.includes(date.getDay()), []);
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 p-4 select-none">
       {/* Month navigation */}
       <div className="flex items-center justify-between mb-4">
         <button
+          type="button"
           onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
           className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
         >
@@ -75,6 +80,7 @@ export function BookingCalendar({ chaletId, blockedDates, checkIn, checkOut, onS
         </button>
         <h3 className="font-semibold text-gray-900">{format(currentMonth, 'MMMM yyyy')}</h3>
         <button
+          type="button"
           onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
           className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
         >
@@ -145,3 +151,5 @@ export function BookingCalendar({ chaletId, blockedDates, checkIn, checkOut, onS
     </div>
   );
 }
+
+export const BookingCalendar = memo(BookingCalendarComponent);

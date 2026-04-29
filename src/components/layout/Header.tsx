@@ -37,6 +37,9 @@ export function Header() {
   const navLinks = [
     { to: '/', label: t('nav.home') },
     { to: '/chalets', label: t('nav.chalets') },
+    { to: '/brands', label: t('nav.brands') },
+    { to: '/contact', label: t('nav.contact') },
+    { to: '/reviews', label: t('nav.reviews') },
   ];
 
   return (
@@ -44,13 +47,19 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-            <div className="w-9 h-9 rounded-full bg-gold-500 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">ف</span>
+          <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
+            <div className="h-10 w-10 rounded-full border border-gold-400 overflow-hidden flex-shrink-0 bg-white">
+              <img
+                src="/grand.jpg"
+                alt="Grande Beach Al Khiran"
+                className="h-full w-full object-contain"
+              />
             </div>
             <div className="flex flex-col leading-none">
-              <span className="text-navy-800 font-bold text-base tracking-tight">Al-Fakhama</span>
-              <span className="text-gold-500 text-xs font-medium">الفخامة</span>
+              <span className="text-navy-800 font-bold text-base tracking-tight">Grande Beach</span>
+              <span className="text-gold-500 text-xs font-medium">
+                {language === 'ar' ? 'خيران - الكويت' : 'Al Khiran, Kuwait'}
+              </span>
             </div>
           </Link>
 

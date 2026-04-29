@@ -15,7 +15,7 @@ export function Layout() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${encodeURIComponent('Hello, I need assistance with Al-Fakhama Resort.')}`}
+        href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${encodeURIComponent('Hello, I need assistance with GrandeBeach Khairan.')}`}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 end-6 z-50 bg-green-500 hover:bg-green-600 text-white p-3.5 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"

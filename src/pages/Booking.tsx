@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import { useTranslation } from 'react-i18next';
@@ -69,38 +69,37 @@ export function Booking() {
   }, [isAuthenticated, user, setValue]);
 
   // Recalculate pricing whenever dates / promo / loyalty change
- 
-   let pricing: PricingBreakdown | null = null;
-
-if (checkIn && checkOut && chalet) {
-  try {
-    pricing = calculatePricing(
-      chalet,
-      checkIn,
-      checkOut,
-      pricingRules,
-      appliedPromo,
-      loyaltyToRedeem
-    );
-  } catch (e) {
-    console.error("Pricing error:", e);
-    pricing = null;
-  }
-}
-console.log("checkIn:", checkIn);
-console.log("checkOut:", checkOut);
-console.log("pricing:", pricing);
   useEffect(() => {
-    if (pricing) dispatch(setPricing(pricing));
-  }, [pricing, dispatch]);
+    if (!checkIn || !checkOut || !chalet) {
+      dispatch(setPricing(null));
+      return;
+    }
 
-  function handleCalendarSelect(ci: Date, co: Date | null) {
+    try {
+      const pricing = calculatePricing(
+        chalet,
+        checkIn,
+        checkOut,
+        pricingRules,
+        appliedPromo,
+        loyaltyToRedeem
+      );
+      dispatch(setPricing(pricing));
+    } catch (e) {
+      console.error("Pricing calculation error:", e);
+      dispatch(setPricing(null));
+    }
+  }, [checkIn, checkOut, chalet, pricingRules, appliedPromo, loyaltyToRedeem, dispatch]);
+
+  const handleCalendarSelect = useCallback((ci: Date, co: Date | null) => {
     setCheckIn(ci);
     setCheckOut(co);
-    if (ci) dispatch(setDates({ checkIn: format(ci, 'yyyy-MM-dd'), checkOut: co ? format(co, 'yyyy-MM-dd') : format(ci, 'yyyy-MM-dd') }));
-  }
+    if (ci && co) {
+      dispatch(setDates({ checkIn: format(ci, 'yyyy-MM-dd'), checkOut: format(co, 'yyyy-MM-dd') }));
+    }
+  }, [dispatch]);
 
-  function handleApplyPromo() {
+  const handleApplyPromo = useCallback(() => {
     const promo = promotions.find((p) => p.code === promoInput.toUpperCase() && p.isActive);
     if (promo) {
       setAppliedPromo(promo);
@@ -109,15 +108,21 @@ console.log("pricing:", pricing);
     } else {
       toast.error(t('booking.promo_invalid'));
     }
-  }
+  }, [promoInput, dispatch, t]);
 
-  function onSubmit(data: GuestForm) {
-    if (!checkIn || !checkOut) { toast.error('Please select check-in and check-out dates'); return; }
-    if (!pricing) return;
+  const onSubmit = useCallback((data: GuestForm) => {
+    if (!checkIn || !checkOut) {
+      toast.error('Please select check-in and check-out dates');
+      return;
+    }
+    if (!draft.pricing) {
+      toast.error('Unable to calculate pricing. Please try again.');
+      return;
+    }
     dispatch(setGuestInfo(data));
     dispatch(setDates({ checkIn: format(checkIn, 'yyyy-MM-dd'), checkOut: format(checkOut, 'yyyy-MM-dd') }));
     navigate('/checkout');
-  }
+  }, [checkIn, checkOut, draft.pricing, dispatch, navigate]);
 
   if (!chalet) return <div className="text-center py-20"><p className="text-gray-500">Chalet not found.</p></div>;
 
@@ -195,9 +200,9 @@ console.log("pricing:", pricing);
                     <p className="text-xs text-gray-500 mt-0.5">
                       {plan === 'full' ? t('booking.full_payment_desc') : t('booking.partial_payment_desc')}
                     </p>
-                    {pricing && plan === 'partial' && (
+                    {draft.pricing && plan === 'partial' && (
                       <p className="text-xs font-semibold text-gold-600 mt-1">
-                        Pay {(pricing?.deposit ?? 0).toLocaleString()} SAR now
+                        Pay {(draft.pricing?.deposit ?? 0).toLocaleString()} SAR now
                       </p>
                     )}
                   </button>
@@ -240,8 +245,8 @@ console.log("pricing:", pricing);
                   />
                   <span className="text-sm font-medium text-gold-700 w-20 text-end">{loyaltyToRedeem} pts</span>
                 </div>
-                {loyaltyToRedeem > 0 && pricing && (
-                  <p className="text-xs text-green-600 mt-1">Saves {pricing.loyaltyDiscount.toLocaleString()} SAR</p>
+                {loyaltyToRedeem > 0 && draft.pricing && (
+                  <p className="text-xs text-green-600 mt-1">Saves {draft.pricing.loyaltyDiscount.toLocaleString()} SAR</p>
                 )}
               </div>
             )}
@@ -249,9 +254,9 @@ console.log("pricing:", pricing);
 
           {/* Right – summary */}
           <div className="space-y-4">
-            {pricing ? (
+            {draft.pricing ? (
               <PricingSummary
-                pricing={pricing}
+                pricing={draft.pricing}
                 paymentPlan={draft.paymentPlan}
                 chaletName={chalet.name[lang]}
                 checkIn={checkIn ? format(checkIn, 'dd MMM') : '—'}
@@ -267,7 +272,7 @@ console.log("pricing:", pricing);
               type="submit"
               fullWidth
               size="lg"
-              disabled={!pricing || !checkIn || !checkOut}
+              disabled={!draft.pricing || !checkIn || !checkOut}
             >
               {t('booking.proceed_payment')}
             </Button>

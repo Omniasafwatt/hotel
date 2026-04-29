@@ -20,6 +20,9 @@ import { ManageChalets } from './pages/admin/ManageChalets';
 import { ManagePricing } from './pages/admin/ManagePricing';
 import { ManageUsers } from './pages/admin/ManageUsers';
 import { ManagePromotions } from './pages/admin/ManagePromotions';
+import { Brands } from './pages/Brands';
+import { Contact } from './pages/Contact';
+import { Reviews } from './pages/Reviews';
 import { NotFound } from './pages/NotFound';
 
 function AppRouter() {
@@ -52,6 +55,9 @@ function AppRouter() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/brands" element={<Brands />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/reviews" element={<Reviews />} />
         <Route path="*" element={<NotFound />} />
       </Route>
 

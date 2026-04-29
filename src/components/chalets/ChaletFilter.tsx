@@ -40,7 +40,7 @@ export function ChaletFilter() {
           >
             <option value="all">{t('chalets.filter_all')}</option>
             <option value="normal">{t('chalets.filter_normal')}</option>
-            <option value="deluxe">{t('chalets.filter_deluxe')}</option>
+            <option value="superior">{t('chalets.filter_deluxe')}</option>
             <option value="vip">{t('chalets.filter_vip')}</option>
           </select>
         </div>

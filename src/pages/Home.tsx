@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Search, Star, Shield, Clock, Award, ChevronRight, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { ChaletCard } from '../components/chalets/ChaletCard';
 import { Button } from '../components/ui/Button';
-
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { setFilter } from '../store/slices/chaletsSlice';
+import type { ChaletType } from '../types';
 
 export function Home() {
   const { t, i18n } = useTranslation();
@@ -17,7 +17,12 @@ export function Home() {
   const lang = i18n.language as 'en' | 'ar';
 
   const chalets = useAppSelector((s) => s.chalets.chalets);
-  const featured = chalets.filter((c) => c.featured).slice(0, 6);
+
+  const [typeFilter, setTypeFilter] = useState<'all' | ChaletType>('all');
+
+  const displayChalets = typeFilter === 'all'
+    ? chalets.filter((c) => c.featured).slice(0, 6)
+    : chalets.filter((c) => c.type === typeFilter);
 
   const [searchCheckIn, setSearchCheckIn] = useState('');
   const [searchCheckOut, setSearchCheckOut] = useState('');
@@ -61,7 +66,7 @@ export function Home() {
             className="max-w-2xl"
           >
             <div className="inline-flex items-center gap-2 bg-gold-500/20 text-gold-300 text-sm font-medium px-4 py-2 rounded-full mb-6">
-              <MapPin size={14} /> Al-Fakhama Resort, Saudi Arabia
+              <MapPin size={14} /> GrandeBeach Khairan, Kuwait
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
               {t('home.hero_title')}
@@ -120,7 +125,7 @@ export function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             {[
-              { value: '15', label: { en: 'Chalets & Villas', ar: 'شاليه وفيلا' } },
+              { value: '15', label: { en: 'Chalets & Resorts', ar: 'شاليه وفيلا' } },
               { value: '500+', label: { en: 'Happy Guests', ar: 'ضيف سعيد' } },
               { value: '4.8', label: { en: 'Average Rating', ar: 'متوسط التقييم' } },
               { value: '3', label: { en: 'Payment Options', ar: 'خيار دفع' } },
@@ -135,8 +140,38 @@ export function Home() {
       </div>
 
       {/* Featured chalets */}
-      <section data-aos="fade-up" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex items-end justify-between mb-10">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+         {/* Filter pills */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          {([
+            { key: 'all', label: lang === 'ar' ? 'الكل' : 'All' },
+            { key: 'normal', label: lang === 'ar' ? 'قياسي' : 'Standard' },
+            { key: 'superior', label: lang === 'ar' ? 'سوبيريور' : 'Superior' },
+            { key: 'vip', label: 'VIP' },
+          ] as const).map(({ key, label }) => (
+            <button
+              key={key}
+              onClick={() => setTypeFilter(key)}
+              className={`relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                typeFilter === key
+                  ? 'text-gold-600 shadow-md'
+                  : 'bg-white border border-gray-200 text-gray-600 hover:border-gold-400 hover:text-gold-600'
+              }`}
+            >
+              {typeFilter === key && (
+                <motion.span
+                  layoutId="filter-pill"
+                  className="absolute inset-0 rounded-full bg-navy-800"
+                  style={{ zIndex: -1 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                />
+              )}
+              {label}
+            </button>
+          ))}
+        </div>
+        {/* Header */}
+        <div className="flex items-end justify-between mb-6">
           <div>
             <h2 className="text-3xl font-bold text-gray-900">{t('home.featured_title')}</h2>
             <p className="text-gray-500 mt-2">{t('home.featured_subtitle')}</p>
@@ -145,11 +180,35 @@ export function Home() {
             View All <ChevronRight size={16} />
           </Link>
         </div>
+
+       
+
+        {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featured.map((chalet) => (
-            <ChaletCard key={chalet.id} chalet={chalet} />
-          ))}
+          <AnimatePresence mode="popLayout">
+            {displayChalets.map((chalet, i) => {
+              const directions = [
+                { x: -80, y: 0 },
+                { x: 0,   y: 60 },
+                { x: 80,  y: 0 },
+              ];
+              const { x, y } = directions[i % 3];
+              return (
+                <motion.div
+                  key={chalet.id}
+                  layout
+                  initial={{ opacity: 0, x, y }}
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.92 }}
+                  transition={{ duration: 0.45, delay: i * 0.07 }}
+                >
+                  <ChaletCard chalet={chalet} />
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </div>
+
         <div className="mt-8 text-center sm:hidden">
           <Link to="/chalets">
             <Button variant="outline">{t('home.cta_btn')}</Button>

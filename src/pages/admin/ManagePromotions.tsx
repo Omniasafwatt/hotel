@@ -135,7 +135,7 @@ export function ManagePromotions() {
             >
               <option value="all">All</option>
               <option value="normal">Normal</option>
-              <option value="deluxe">Deluxe</option>
+              <option value="superior">Superior</option>
               <option value="vip">VIP</option>
             </select>
           </div>

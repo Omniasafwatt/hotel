@@ -1,4 +1,4 @@
-export type ChaletType = 'normal' | 'deluxe' | 'vip';
+export type ChaletType = 'normal' | 'superior' | 'vip';
 export type BookingStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed';
 export type PaymentMethod = 'tap' | 'deema' | 'taly';
 export type PaymentPlan = 'full' | 'partial';

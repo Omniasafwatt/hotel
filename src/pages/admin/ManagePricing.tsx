@@ -144,7 +144,7 @@ export function ManagePricing() {
             >
               <option value="all">All Types</option>
               <option value="normal">Normal</option>
-              <option value="deluxe">Deluxe</option>
+              <option value="superior">Superior</option>
               <option value="vip">VIP</option>
             </select>
           </div>

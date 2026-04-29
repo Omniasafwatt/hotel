@@ -21,7 +21,7 @@ export const promotions: Promotion[] = [
     id: 'promo02',
     code: 'SUMMER25',
     name: { en: 'Summer Special', ar: 'عرض الصيف' },
-    description: { en: '25% off deluxe and VIP chalets in summer', ar: '25% خصم على الشاليهات الديلوكس و VIP في الصيف' },
+    description: { en: '25% off superior and VIP chalets in summer', ar: '25% خصم على الشاليهات السوبيريور و VIP في الصيف' },
     type: 'percentage',
     value: 25,
     minBookingAmount: 2000,
@@ -30,7 +30,7 @@ export const promotions: Promotion[] = [
     validTo: '2026-08-31',
     usageLimit: 200,
     usageCount: 87,
-    applicableTo: 'deluxe',
+    applicableTo: 'superior',
     isActive: true,
   },
   {

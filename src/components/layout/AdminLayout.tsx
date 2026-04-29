@@ -44,9 +44,9 @@ export function AdminLayout() {
         {/* Logo */}
         <div className={cn('flex items-center gap-2 h-16 px-4 border-b border-navy-700', collapsed && 'justify-center')}>
           <div className="w-8 h-8 rounded-full bg-gold-500 flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-bold text-sm">ف</span>
+            <span className="text-white font-bold text-sm">G</span>
           </div>
-          {!collapsed && <span className="font-bold text-sm">Al-Fakhama Admin</span>}
+          {!collapsed && <span className="font-bold text-sm">GrandeBeach Admin</span>}
         </div>
 
         {/* Nav */}

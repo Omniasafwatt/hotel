@@ -24,7 +24,7 @@ export function Confirmation() {
     );
   }
 
-  const waMessage = encodeURIComponent(`Hello Al-Fakhama! My booking ID is ${booking.id} for ${chalet.name.en}. Check-in: ${booking.checkIn}`);
+  const waMessage = encodeURIComponent(`Hello GrandeBeach Khairan! My booking ID is ${booking.id} for ${chalet.name.en}. Check-in: ${booking.checkIn}`);
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-12">

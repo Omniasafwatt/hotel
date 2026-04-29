@@ -6,7 +6,7 @@ export const chalets: Chalet[] = [
   // ─── NORMAL (5) ───────────────────────────────────────────────
   {
     id: 'c01',
-    name: { en: 'Al-Nassem Chalet', ar: 'شاليه النسيم' },
+    name: { en: 'Grande Standard A1', ar: 'غراند ستاندرد A1' },
     description: {
       en: 'A serene chalet surrounded by lush greenery, offering a peaceful retreat for families. Equipped with modern amenities and a private garden.',
       ar: 'شاليه هادئ محاط بالخضرة الكثيفة، يوفر ملاذاً مريحاً للعائلات. مجهز بوسائل الراحة الحديثة وحديقة خاصة.',
@@ -32,7 +32,7 @@ export const chalets: Chalet[] = [
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'garden'],
     location: {
       lat: 24.7136, lng: 46.6753,
-      address: { en: 'Al-Fakhama Resort, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة، الرياض، المملكة العربية السعودية' },
+      address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
       region: { en: 'Riyadh', ar: 'الرياض' },
     },
     cancellationPolicy: 'flexible',
@@ -45,7 +45,7 @@ export const chalets: Chalet[] = [
   },
   {
     id: 'c02',
-    name: { en: 'Al-Aseel Chalet', ar: 'شاليه الأصيل' },
+    name: { en: 'Grande Standard A2', ar: 'غراند ستاندرد A2' },
     description: {
       en: 'A classic chalet with traditional Arabian touches blended with modern comfort. Perfect for a family gathering.',
       ar: 'شاليه كلاسيكي يجمع بين اللمسات العربية الأصيلة والراحة الحديثة. مثالي لتجمعات العائلة.',
@@ -71,7 +71,7 @@ export const chalets: Chalet[] = [
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'security'],
     location: {
       lat: 24.7200, lng: 46.6800,
-      address: { en: 'Al-Fakhama Resort, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة، الرياض، المملكة العربية السعودية' },
+      address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
       region: { en: 'Riyadh', ar: 'الرياض' },
     },
     cancellationPolicy: 'moderate',
@@ -84,7 +84,7 @@ export const chalets: Chalet[] = [
   },
   {
     id: 'c03',
-    name: { en: 'Al-Hudou Chalet', ar: 'شاليه الهدوء' },
+    name: { en: 'Grande Standard A3', ar: 'غراند ستاندرد A3' },
     description: {
       en: 'Tranquility at its finest. This chalet offers a quiet escape with panoramic views and a spacious private terrace.',
       ar: 'الهدوء في أبهى صوره. يوفر هذا الشاليه ملاذاً هادئاً مع إطلالات بانورامية وشرفة خاصة فسيحة.',
@@ -110,7 +110,7 @@ export const chalets: Chalet[] = [
     amenities: ['wifi', 'kitchen', 'bbq', 'parking', 'ac', 'garden'],
     location: {
       lat: 24.7050, lng: 46.6700,
-      address: { en: 'Al-Fakhama Resort, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة، الرياض، المملكة العربية السعودية' },
+      address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
       region: { en: 'Riyadh', ar: 'الرياض' },
     },
     cancellationPolicy: 'flexible',
@@ -121,7 +121,7 @@ export const chalets: Chalet[] = [
   },
   {
     id: 'c04',
-    name: { en: 'Al-Safa Chalet', ar: 'شاليه الصفاء' },
+    name: { en: 'Grande Standard A4', ar: 'غراند ستاندرد A4' },
     description: {
       en: 'A bright and airy chalet with clean interiors and a private pool. Ideal for families seeking simple luxury.',
       ar: 'شاليه مضيء وهوائي بديكورات نظيفة ومسبح خاص. مثالي للعائلات الباحثة عن الفخامة البسيطة.',
@@ -147,7 +147,7 @@ export const chalets: Chalet[] = [
     amenities: ['pool', 'wifi', 'kitchen', 'parking', 'ac', 'cleaning'],
     location: {
       lat: 24.7180, lng: 46.6720,
-      address: { en: 'Al-Fakhama Resort, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة، الرياض، المملكة العربية السعودية' },
+      address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
       region: { en: 'Riyadh', ar: 'الرياض' },
     },
     cancellationPolicy: 'moderate',
@@ -156,53 +156,16 @@ export const chalets: Chalet[] = [
     reviewCount: 51,
     featured: true,
   },
-  {
-    id: 'c05',
-    name: { en: 'Al-Wurood Chalet', ar: 'شاليه الورود' },
-    description: {
-      en: 'A charming chalet surrounded by roses and jasmine. Perfect for romantic getaways or family celebrations.',
-      ar: 'شاليه ساحر محاط بالورود والياسمين. مثالي للرحلات الرومانسية أو احتفالات العائلة.',
-    },
-    type: 'normal',
-    basePrice: 620,
-    images: [
-      `${BASE}36852535/pexels-photo-36852535.jpeg?auto=compress&cs=tinysrgb&w=900`,
-      `${BASE}19639205/pexels-photo-19639205.jpeg?auto=compress&cs=tinysrgb&w=900`,
-      `${BASE}34956629/pexels-photo-34956629.jpeg?auto=compress&cs=tinysrgb&w=900`,
-    ],
-    bedrooms: [
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'single', beds: 2, hasEnsuite: false },
-      { type: 'single', beds: 2, hasEnsuite: false },
-      { type: 'single', beds: 2, hasEnsuite: false },
-    ],
-    bathrooms: 4,
-    maxGuests: 14,
-    size: 290,
-    amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'garden', 'playground'],
-    location: {
-      lat: 24.7100, lng: 46.6790,
-      address: { en: 'Al-Fakhama Resort, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة، الرياض، المملكة العربية السعودية' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
-    },
-    cancellationPolicy: 'flexible',
-    isAvailable: true,
-    rating: 4.5,
-    reviewCount: 63,
-    featured: false,
-  },
 
-  // ─── DELUXE (5) ───────────────────────────────────────────────
+  // ─── SUPERIOR (5) ───────────────────────────────────────────────
   {
     id: 'c06',
-    name: { en: 'Al-Amwaj Deluxe', ar: 'شاليه الأمواج ديلوكس' },
+    name: { en: 'Grande Superior B1', ar: 'غراند سوبيريور B1' },
     description: {
       en: 'A stunning deluxe chalet with wave-inspired design, infinity pool, and premium furnishings throughout.',
-      ar: 'شاليه ديلوكس رائع بتصميم مستوحى من الأمواج، مسبح لا نهائي، وأثاث فاخر في كل مكان.',
+      ar: 'شاليه سوبيريور رائع بتصميم مستوحى من الأمواج، مسبح لا نهائي، وأثاث فاخر في كل مكان.',
     },
-    type: 'deluxe',
+    type: 'superior',
     basePrice: 1100,
     images: [
       `${BASE}36767624/pexels-photo-36767624.jpeg?auto=compress&cs=tinysrgb&w=900`,
@@ -223,7 +186,7 @@ export const chalets: Chalet[] = [
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'cinema', 'security', 'cleaning'],
     location: {
       lat: 24.7220, lng: 46.6850,
-      address: { en: 'Al-Fakhama Resort, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة، الرياض، المملكة العربية السعودية' },
+      address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
       region: { en: 'Riyadh', ar: 'الرياض' },
     },
     cancellationPolicy: 'moderate',
@@ -236,12 +199,12 @@ export const chalets: Chalet[] = [
   },
   {
     id: 'c07',
-    name: { en: 'Al-Bustan Deluxe', ar: 'شاليه البستان ديلوكس' },
+    name: { en: 'Grande Superior B2', ar: 'غراند سوبيريور B2' },
     description: {
       en: 'Set within lush gardens, this deluxe chalet combines natural beauty with premium amenities for an extraordinary stay.',
-      ar: 'يقع داخل حدائق غنّاء، يجمع هذا الشاليه الديلوكس بين الجمال الطبيعي والمرافق الفاخرة لإقامة استثنائية.',
+      ar: 'يقع داخل حدائق غنّاء، يجمع هذا الشاليه السوبيريور بين الجمال الطبيعي والمرافق الفاخرة لإقامة استثنائية.',
     },
-    type: 'deluxe',
+    type: 'superior',
     basePrice: 1200,
     images: [
       `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
@@ -262,7 +225,7 @@ export const chalets: Chalet[] = [
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'jacuzzi', 'security', 'garden', 'cleaning'],
     location: {
       lat: 24.7160, lng: 46.6870,
-      address: { en: 'Al-Fakhama Resort, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة، الرياض، المملكة العربية السعودية' },
+      address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
       region: { en: 'Riyadh', ar: 'الرياض' },
     },
     cancellationPolicy: 'moderate',
@@ -275,12 +238,12 @@ export const chalets: Chalet[] = [
   },
   {
     id: 'c08',
-    name: { en: 'Al-Qamar Deluxe', ar: 'شاليه القمر ديلوكس' },
+    name: { en: 'Grande Superior B3', ar: 'غراند سوبيريور B3' },
     description: {
       en: 'A moonlit retreat with rooftop terrace and stargazing deck. Premium deluxe experience under the Saudi sky.',
-      ar: 'ملاذ مضيء بضوء القمر مع شرفة على السطح ومنصة لمراقبة النجوم. تجربة ديلوكس فاخرة تحت السماء السعودية.',
+      ar: 'ملاذ مضيء بضوء القمر مع شرفة على السطح ومنصة لمراقبة النجوم. تجربة سوبيريور فاخرة تحت السماء السعودية.',
     },
-    type: 'deluxe',
+    type: 'superior',
     basePrice: 1150,
     images: [
       `${BASE}34618647/pexels-photo-34618647.jpeg?auto=compress&cs=tinysrgb&w=900`,
@@ -301,7 +264,7 @@ export const chalets: Chalet[] = [
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'cinema', 'security', 'cleaning', 'breakfast'],
     location: {
       lat: 24.7250, lng: 46.6900,
-      address: { en: 'Al-Fakhama Resort, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة، الرياض، المملكة العربية السعودية' },
+      address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
       region: { en: 'Riyadh', ar: 'الرياض' },
     },
     cancellationPolicy: 'strict',
@@ -313,12 +276,12 @@ export const chalets: Chalet[] = [
   },
   {
     id: 'c09',
-    name: { en: 'Al-Zahraa Deluxe', ar: 'شاليه الزهراء ديلوكس' },
+    name: { en: 'Grande Superior B4', ar: 'غراند سوبيريور B4' },
     description: {
       en: 'Brilliant interiors with floor-to-ceiling windows, a heated pool, and a private home theater experience.',
       ar: 'ديكورات داخلية رائعة مع نوافذ من الأرض إلى السقف، مسبح مدفأ، وتجربة سينما منزلية خاصة.',
     },
-    type: 'deluxe',
+    type: 'superior',
     basePrice: 1300,
     images: [
       `${BASE}35172686/pexels-photo-35172686.jpeg?auto=compress&cs=tinysrgb&w=900`,
@@ -339,7 +302,7 @@ export const chalets: Chalet[] = [
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'cinema', 'jacuzzi', 'security', 'cleaning'],
     location: {
       lat: 24.7080, lng: 46.6810,
-      address: { en: 'Al-Fakhama Resort, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة، الرياض، المملكة العربية السعودية' },
+      address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
       region: { en: 'Riyadh', ar: 'الرياض' },
     },
     cancellationPolicy: 'moderate',
@@ -350,49 +313,11 @@ export const chalets: Chalet[] = [
     reviewCount: 134,
     featured: true,
   },
-  {
-    id: 'c10',
-    name: { en: 'Al-Nakheel Deluxe', ar: 'شاليه النخيل ديلوكس' },
-    description: {
-      en: 'Nestled among palm trees with a desert-modern aesthetic. Infinity pool, outdoor kitchen, and unmatched privacy.',
-      ar: 'يقع بين أشجار النخيل بجمالية صحراوية حديثة. مسبح لا نهائي ومطبخ خارجي وخصوصية لا مثيل لها.',
-    },
-    type: 'deluxe',
-    basePrice: 1250,
-    images: [
-      `${BASE}34618647/pexels-photo-34618647.jpeg?auto=compress&cs=tinysrgb&w=900`,
-      `${BASE}29000012/pexels-photo-29000012.jpeg?auto=compress&cs=tinysrgb&w=900`,
-      `${BASE}7821341/pexels-photo-7821341.jpeg?auto=compress&cs=tinysrgb&w=900`,
-    ],
-    bedrooms: [
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'single', beds: 2, hasEnsuite: false },
-      { type: 'single', beds: 2, hasEnsuite: false },
-      { type: 'single', beds: 2, hasEnsuite: false },
-    ],
-    bathrooms: 5,
-    maxGuests: 14,
-    size: 440,
-    amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'security', 'cleaning', 'garden'],
-    location: {
-      lat: 24.7140, lng: 46.6760,
-      address: { en: 'Al-Fakhama Resort, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة، الرياض، المملكة العربية السعودية' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
-    },
-    cancellationPolicy: 'moderate',
-    airbnbUrl: 'https://www.airbnb.com',
-    isAvailable: true,
-    rating: 4.7,
-    reviewCount: 88,
-    featured: false,
-  },
 
-  // ─── VIP (5) ──────────────────────────────────────────────────
+  // ─── VIP (2) ──────────────────────────────────────────────────
   {
     id: 'c11',
-    name: { en: 'Al-Malakiya Royal Villa', ar: 'فيلا الملكية' },
+    name: { en: 'Grande VIP 1', ar: 'غراند VIP 1' },
     description: {
       en: 'The pinnacle of luxury. A royal villa with grand interiors, dual infinity pools, private chef service, and 360° views.',
       ar: 'قمة الفخامة. فيلا ملكية بديكورات فاخرة ومسبحين لا نهائيين وخدمة طاهٍ خاص وإطلالات 360 درجة.',
@@ -418,7 +343,7 @@ export const chalets: Chalet[] = [
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'cinema', 'jacuzzi', 'security', 'cleaning', 'breakfast', 'garden'],
     location: {
       lat: 24.7300, lng: 46.6950,
-      address: { en: 'Al-Fakhama Resort – VIP Wing, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة – الجناح الملكي، الرياض، المملكة العربية السعودية' },
+      address: { en: 'GrandeBeach Khairan – VIP Wing, Kuwait', ar: 'غراند بيتش خيران – الجناح الملكي، الكويت' },
       region: { en: 'Riyadh', ar: 'الرياض' },
     },
     cancellationPolicy: 'strict',
@@ -431,7 +356,7 @@ export const chalets: Chalet[] = [
   },
   {
     id: 'c12',
-    name: { en: 'Al-Fakhama Grand Villa', ar: 'فيلا الفخامة الكبرى' },
+    name: { en: 'Grande VIP 2', ar: 'غراند VIP 2' },
     description: {
       en: 'Our signature villa. Grand architecture, gold accents throughout, exclusive butler service, and a private spa retreat.',
       ar: 'فيلتنا المميزة. معمار رائع بلمسات ذهبية وخدمة باتلر حصرية وملجأ سبا خاص.',
@@ -457,7 +382,7 @@ export const chalets: Chalet[] = [
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'cinema', 'jacuzzi', 'security', 'cleaning', 'breakfast', 'garden', 'playground'],
     location: {
       lat: 24.7320, lng: 46.6970,
-      address: { en: 'Al-Fakhama Resort – VIP Wing, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة – الجناح الملكي، الرياض، المملكة العربية السعودية' },
+      address: { en: 'GrandeBeach Khairan – VIP Wing, Kuwait', ar: 'غراند بيتش خيران – الجناح الملكي، الكويت' },
       region: { en: 'Riyadh', ar: 'الرياض' },
     },
     cancellationPolicy: 'strict',
@@ -466,122 +391,6 @@ export const chalets: Chalet[] = [
     isAvailable: true,
     rating: 5.0,
     reviewCount: 28,
-    featured: true,
-  },
-  {
-    id: 'c13',
-    name: { en: 'Al-Jawharah Villa', ar: 'فيلا الجوهرة' },
-    description: {
-      en: 'A jewel of the resort. Designed for discerning guests who demand nothing but the absolute best.',
-      ar: 'جوهرة المنتجع. مصممة للضيوف المميزين الذين لا يقبلون إلا الأفضل.',
-    },
-    type: 'vip',
-    basePrice: 2200,
-    images: [
-      `${BASE}32021575/pexels-photo-32021575.jpeg?auto=compress&cs=tinysrgb&w=900`,
-      `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
-      `${BASE}36354955/pexels-photo-36354955.jpeg?auto=compress&cs=tinysrgb&w=900`,
-    ],
-    bedrooms: [
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'single', beds: 2, hasEnsuite: true },
-      { type: 'single', beds: 2, hasEnsuite: false },
-      { type: 'single', beds: 2, hasEnsuite: false },
-    ],
-    bathrooms: 6,
-    maxGuests: 18,
-    size: 650,
-    amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'cinema', 'jacuzzi', 'security', 'cleaning', 'garden'],
-    location: {
-      lat: 24.7280, lng: 46.6920,
-      address: { en: 'Al-Fakhama Resort – VIP Wing, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة – الجناح الملكي، الرياض، المملكة العربية السعودية' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
-    },
-    cancellationPolicy: 'strict',
-    bookingComUrl: 'https://www.booking.com',
-    isAvailable: true,
-    rating: 4.9,
-    reviewCount: 35,
-    featured: false,
-  },
-  {
-    id: 'c14',
-    name: { en: "Al-Lu'lu'a Villa", ar: 'فيلا اللؤلؤة' },
-    description: {
-      en: 'Pearl of the desert. An oceanfront-inspired villa with cascading pools, private beach area, and opulent details.',
-      ar: 'لؤلؤة الصحراء. فيلا مستوحاة من الواجهة البحرية مع مسابح متتالية ومنطقة شاطئ خاصة وتفاصيل بذخ.',
-    },
-    type: 'vip',
-    basePrice: 2400,
-    images: [
-      `${BASE}30898458/pexels-photo-30898458.jpeg?auto=compress&cs=tinysrgb&w=900`,
-      `${BASE}36852532/pexels-photo-36852532.jpeg?auto=compress&cs=tinysrgb&w=900`,
-      `${BASE}15394148/pexels-photo-15394148.jpeg?auto=compress&cs=tinysrgb&w=900`,
-    ],
-    bedrooms: [
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'single', beds: 2, hasEnsuite: true },
-      { type: 'single', beds: 2, hasEnsuite: true },
-      { type: 'single', beds: 2, hasEnsuite: false },
-    ],
-    bathrooms: 7,
-    maxGuests: 18,
-    size: 680,
-    amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'cinema', 'jacuzzi', 'security', 'cleaning', 'breakfast', 'garden', 'sea_view'],
-    location: {
-      lat: 24.7340, lng: 46.6940,
-      address: { en: 'Al-Fakhama Resort – VIP Wing, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة – الجناح الملكي، الرياض، المملكة العربية السعودية' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
-    },
-    cancellationPolicy: 'non_refundable',
-    bookingComUrl: 'https://www.booking.com',
-    airbnbUrl: 'https://www.airbnb.com',
-    isAvailable: true,
-    rating: 4.9,
-    reviewCount: 22,
-    featured: true,
-  },
-  {
-    id: 'c15',
-    name: { en: 'Al-Amir Villa', ar: 'فيلا الأمير' },
-    description: {
-      en: 'The most prestigious villa in the resort. A princely residence with dedicated staff, grand ballroom, and ultimate exclusivity.',
-      ar: 'أرقى فيلا في المنتجع. مقر أميري مع طاقم خدمة خاص وقاعة احتفالات كبرى وحصرية مطلقة.',
-    },
-    type: 'vip',
-    basePrice: 3000,
-    images: [
-      `${BASE}11436776/pexels-photo-11436776.jpeg?auto=compress&cs=tinysrgb&w=900`,
-      `${BASE}32334253/pexels-photo-32334253.jpeg?auto=compress&cs=tinysrgb&w=900`,
-      `${BASE}34618647/pexels-photo-34618647.jpeg?auto=compress&cs=tinysrgb&w=900`,
-    ],
-    bedrooms: [
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'master', beds: 1, hasEnsuite: true },
-      { type: 'single', beds: 2, hasEnsuite: true },
-      { type: 'single', beds: 2, hasEnsuite: true },
-      { type: 'single', beds: 2, hasEnsuite: true },
-    ],
-    bathrooms: 8,
-    maxGuests: 20,
-    size: 900,
-    amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'cinema', 'jacuzzi', 'security', 'cleaning', 'breakfast', 'garden', 'playground', 'mountain_view'],
-    location: {
-      lat: 24.7360, lng: 46.6980,
-      address: { en: 'Al-Fakhama Resort – VIP Wing, Riyadh, Saudi Arabia', ar: 'منتجع الفخامة – الجناح الملكي، الرياض، المملكة العربية السعودية' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
-    },
-    cancellationPolicy: 'non_refundable',
-    bookingComUrl: 'https://www.booking.com',
-    airbnbUrl: 'https://www.airbnb.com',
-    isAvailable: true,
-    rating: 5.0,
-    reviewCount: 18,
     featured: true,
   },
 ];

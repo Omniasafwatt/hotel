@@ -29,10 +29,10 @@ export function Badge({ variant = 'gray', size = 'md', children, className }: Ba
   );
 }
 
-export function ChaletTypeBadge({ type }: { type: 'normal' | 'deluxe' | 'vip' }) {
+export function ChaletTypeBadge({ type }: { type: 'normal' | 'superior' | 'vip' }) {
   const map = {
     normal: { label: 'Standard', variant: 'gray' as const },
-    deluxe: { label: 'Deluxe', variant: 'gold' as const },
+    superior: { label: 'Superior', variant: 'gold' as const },
     vip: { label: 'VIP', variant: 'navy' as const },
   };
   const { label, variant } = map[type];
