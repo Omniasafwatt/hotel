@@ -89,7 +89,7 @@ export function ManageUsers() {
                     <p className="text-xs text-gray-400">{tier.label[lang]}</p>
                   </td>
                   <td className="px-4 py-3 text-gray-600">{u.bookingsCount}</td>
-                  <td className="px-4 py-3 font-medium text-gray-900">{u.totalSpent.toLocaleString()} SAR</td>
+                  <td className="px-4 py-3 font-medium text-gray-900">{u.totalSpent.toLocaleString()} KWD</td>
                   <td className="px-4 py-3">
                     <Badge variant={u.isActive ? 'green' : 'red'} size="sm">{u.isActive ? 'Active' : 'Inactive'}</Badge>
                   </td>

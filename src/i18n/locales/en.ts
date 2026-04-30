@@ -86,7 +86,7 @@ const en = {
     seasonal_surcharge: 'Seasonal surcharge',
     discount: 'Discount',
     loyalty_discount: 'Loyalty discount',
-    tax: 'VAT (15%)',
+    tax: 'Tax',
     total: 'Total',
     deposit: 'Deposit (30%)',
     remaining: 'Remaining on arrival',
@@ -169,7 +169,7 @@ const en = {
     search_placeholder: 'Search…',
   },
   common: {
-    sar: 'SAR',
+    sar: 'KWD',
     loading: 'Loading…',
     error: 'Something went wrong',
     retry: 'Retry',

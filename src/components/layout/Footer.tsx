@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { WHATSAPP_NUMBER } from '../../utils/constants';
+import { FaWhatsapp } from 'react-icons/fa';
 
 export function Footer() {
   const { t, i18n } = useTranslation();
@@ -84,7 +85,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
             >
-              <MessageCircle size={16} />
+              <FaWhatsapp size={16} />
               {isAr ? 'دعم واتساب' : 'WhatsApp Support'}
             </a>
           </div>

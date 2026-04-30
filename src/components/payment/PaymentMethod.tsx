@@ -69,7 +69,7 @@ export function PaymentMethodSelector({ selected, onSelect, amount }: PaymentMet
                 <div className="text-end flex-shrink-0">
                   <p className="text-xs text-gray-500">{installments} × </p>
                   <p className="text-sm font-semibold text-gray-900">
-                    {Math.ceil(amount / installments).toLocaleString()} SAR
+                    {Math.ceil(amount / installments).toLocaleString()} KWD
                   </p>
                 </div>
               )}

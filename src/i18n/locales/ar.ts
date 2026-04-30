@@ -86,7 +86,7 @@ const ar = {
     seasonal_surcharge: 'الرسوم الموسمية',
     discount: 'خصم',
     loyalty_discount: 'خصم نقاط الولاء',
-    tax: 'ضريبة القيمة المضافة (15%)',
+    tax: 'الضريبة',
     total: 'الإجمالي',
     deposit: 'العربون (30%)',
     remaining: 'المتبقي عند الوصول',
@@ -169,7 +169,7 @@ const ar = {
     search_placeholder: 'بحث…',
   },
   common: {
-    sar: 'ريال',
+    sar: 'د.ك',
     loading: 'جاري التحميل…',
     error: 'حدث خطأ ما',
     retry: 'إعادة المحاولة',

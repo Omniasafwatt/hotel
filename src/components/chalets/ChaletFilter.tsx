@@ -62,7 +62,7 @@ export function ChaletFilter() {
         {/* Max price */}
         <div className="flex flex-col gap-1.5 min-w-[150px]">
           <label className="text-xs font-medium text-gray-600">
-            {t('chalets.filter_price')}: up to {filters.maxPrice.toLocaleString()} SAR
+            {t('chalets.filter_price')}: up to {filters.maxPrice.toLocaleString()} KWD
           </label>
           <input
             type="range"

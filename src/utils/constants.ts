@@ -1,12 +1,12 @@
-export const WHATSAPP_NUMBER = '+966500000000';
+export const WHATSAPP_NUMBER = '+96590976666';
 export const GOOGLE_MAPS_EMBED_KEY = 'YOUR_GOOGLE_MAPS_KEY';
-export const RESORT_LOCATION = { lat: 24.7136, lng: 46.6753 };
+export const RESORT_LOCATION = { lat: 28.6553, lng: 48.3861 };
 export const TAX_RATE = 0.15;
 export const DEPOSIT_RATE = 0.30;
-export const LOYALTY_POINTS_PER_SAR = 0.1;
-export const LOYALTY_POINTS_TO_SAR = 0.5;
+export const LOYALTY_POINTS_PER_KWD = 0.1;
+export const LOYALTY_POINTS_TO_KWD = 0.5;
 export const MAX_LOYALTY_DISCOUNT_PERCENT = 0.20;
-export const WEEKEND_DAYS = [4, 5]; // Thursday=4, Friday=5 (Saudi weekend)
+export const WEEKEND_DAYS = [5, 6]; // Friday=5, Saturday=6 (Kuwait weekend)
 
 export const LOYALTY_TIERS = {
   bronze:   { min: 0,     max: 999,   discount: 0,    label: { en: 'Bronze', ar: 'برونزي' } },

@@ -107,10 +107,10 @@ export function Checkout() {
 
           <div className="bg-navy-50 rounded-xl p-4 text-sm">
             <p className="font-semibold text-navy-800 mb-1">Amount to pay now</p>
-            <p className="text-3xl font-bold text-navy-900">{amountToPay.toLocaleString()} SAR</p>
+            <p className="text-3xl font-bold text-navy-900">{amountToPay.toLocaleString()} KWD</p>
             {draft.paymentPlan === 'partial' && (
               <p className="text-navy-500 text-xs mt-1">
-                Remaining {draft.pricing.remaining.toLocaleString()} SAR due on arrival
+                Remaining {draft.pricing.remaining.toLocaleString()} KWD due on arrival
               </p>
             )}
           </div>
@@ -128,7 +128,7 @@ export function Checkout() {
             isLoading={isProcessing}
             disabled={!draft.paymentMethod || isProcessing}
           >
-            {isProcessing ? t('payment.processing') : `${t('payment.pay_now')} – ${amountToPay.toLocaleString()} SAR`}
+            {isProcessing ? t('payment.processing') : `${t('payment.pay_now')} – ${amountToPay.toLocaleString()} KWD`}
           </Button>
         </div>
 

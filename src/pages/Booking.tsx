@@ -37,6 +37,7 @@ export function Booking() {
   const chalet = useAppSelector((s) => s.chalets.chalets.find((c) => c.id === chaletId));
   const pricingRules = useAppSelector((s) => s.admin.pricingRules);
   const draft = useAppSelector((s) => s.booking.draft);
+  const existingBookings = useAppSelector((s) => s.booking.bookings);
   const { user, isAuthenticated } = useAppSelector((s) => s.auth);
 
   const sessionKey = `booking_dates_${chaletId}`;
@@ -143,6 +144,13 @@ export function Booking() {
 
   if (!chalet) return <div className="text-center py-20"><p className="text-gray-500">Chalet not found.</p></div>;
 
+  const allBlockedDates = [
+    ...blockedDates,
+    ...existingBookings
+      .filter((b) => b.chaletId === chaletId && b.status !== 'cancelled')
+      .map((b) => ({ chaletId: b.chaletId, startDate: b.checkIn, endDate: b.checkOut, bookingId: b.id })),
+  ];
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div className="mb-8">
@@ -159,7 +167,7 @@ export function Booking() {
               <h2 className="font-semibold text-gray-900 mb-4">{t('booking.select_dates')}</h2>
               <BookingCalendar
                 chaletId={chalet.id}
-                blockedDates={blockedDates}
+                blockedDates={allBlockedDates}
                 checkIn={checkIn}
                 checkOut={checkOut}
                 onSelect={handleCalendarSelect}
@@ -219,7 +227,7 @@ export function Booking() {
                     </p>
                     {draft.pricing && plan === 'partial' && (
                       <p className="text-xs font-semibold text-gold-600 mt-1">
-                        Pay {(draft.pricing?.deposit ?? 0).toLocaleString()} SAR now
+                        Pay {(draft.pricing?.deposit ?? 0).toLocaleString()} KWD now
                       </p>
                     )}
                   </button>
@@ -263,7 +271,7 @@ export function Booking() {
                   <span className="text-sm font-medium text-gold-700 w-20 text-end">{loyaltyToRedeem} pts</span>
                 </div>
                 {loyaltyToRedeem > 0 && draft.pricing && (
-                  <p className="text-xs text-green-600 mt-1">Saves {draft.pricing.loyaltyDiscount.toLocaleString()} SAR</p>
+                  <p className="text-xs text-green-600 mt-1">Saves {draft.pricing.loyaltyDiscount.toLocaleString()} KWD</p>
                 )}
               </div>
             )}

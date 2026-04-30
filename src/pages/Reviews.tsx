@@ -25,8 +25,8 @@ const REVIEWS = [
   {
     id: 2,
     name: 'Ahmed Al-Rashidi',
-    country: 'Saudi Arabia',
-    flag: '🇸🇦',
+    country: 'Kuwait',
+    flag: '🇰🇼',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80',
     rating: 5,
     date: 'February 2025',

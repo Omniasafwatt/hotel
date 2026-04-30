@@ -58,7 +58,7 @@ export function ManageChalets() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs text-gray-400">Base price / night</p>
-                  <p className="text-lg font-bold text-gold-600">{chalet.basePrice.toLocaleString()} SAR</p>
+                  <p className="text-lg font-bold text-gold-600">{chalet.basePrice.toLocaleString()} KWD</p>
                 </div>
                 <button
                   onClick={() => setEditChalet({ id: chalet.id, price: chalet.basePrice })}

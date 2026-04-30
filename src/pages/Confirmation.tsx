@@ -97,17 +97,17 @@ export function Confirmation() {
         <div className="px-5 pb-5 space-y-2 text-sm border-t border-gray-100 pt-4">
           <div className="flex justify-between">
             <span className="text-gray-500">Total</span>
-            <span className="font-bold text-gray-900">{booking.totalAmount.toLocaleString()} SAR</span>
+            <span className="font-bold text-gray-900">{booking.totalAmount.toLocaleString()} KWD</span>
           </div>
           {booking.paymentPlan === 'partial' && (
             <>
               <div className="flex justify-between">
                 <span className="text-gray-500">Paid now (deposit)</span>
-                <span className="text-green-700 font-medium">{booking.depositAmount.toLocaleString()} SAR</span>
+                <span className="text-green-700 font-medium">{booking.depositAmount.toLocaleString()} KWD</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Due on arrival</span>
-                <span className="text-gray-700">{booking.remainingAmount.toLocaleString()} SAR</span>
+                <span className="text-gray-700">{booking.remainingAmount.toLocaleString()} KWD</span>
               </div>
             </>
           )}

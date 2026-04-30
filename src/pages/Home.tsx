@@ -19,10 +19,41 @@ export function Home() {
   const chalets = useAppSelector((s) => s.chalets.chalets);
 
   const [typeFilter, setTypeFilter] = useState<'all' | ChaletType>('all');
+  const [unitFilter, setUnitFilter] = useState<string | null>(null);
 
-  const displayChalets = typeFilter === 'all'
-    ? chalets.filter((c) => c.featured).slice(0, 6)
-    : chalets.filter((c) => c.type === typeFilter);
+  const INVENTORY = [
+    { unit: 'A1', type: 'normal'   as ChaletType, id: 'c01', price: 350 },
+    { unit: 'A2', type: 'normal'   as ChaletType, id: 'c02', price: 350 },
+    { unit: 'A3', type: 'normal'   as ChaletType, id: 'c03', price: 350 },
+    { unit: 'A4', type: 'normal'   as ChaletType, id: 'c04', price: 350 },
+    { unit: 'B1', type: 'superior' as ChaletType, id: 'c06', price: 500 },
+    { unit: 'B2', type: 'superior' as ChaletType, id: 'c07', price: 500 },
+    { unit: 'B3', type: 'superior' as ChaletType, id: 'c08', price: 500 },
+    { unit: 'B4', type: 'superior' as ChaletType, id: 'c09', price: 500 },
+    { unit: 'VIP 1', type: 'vip'   as ChaletType, id: 'c11', price: 750 },
+    { unit: 'VIP 2', type: 'vip'   as ChaletType, id: 'c12', price: 750 },
+  ];
+
+  const filteredInventory = typeFilter === 'all'
+    ? INVENTORY
+    : INVENTORY.filter((u) => u.type === typeFilter);
+
+  const displayChalets = (() => {
+    if (unitFilter) return chalets.filter((c) => c.id === INVENTORY.find((u) => u.unit === unitFilter)?.id);
+    if (typeFilter !== 'all') return chalets.filter((c) => c.type === typeFilter);
+    return chalets.filter((c) => c.featured).slice(0, 6);
+  })();
+
+  function handleUnitClick(unit: string) {
+    if (unitFilter === unit) { setUnitFilter(null); return; }
+    setUnitFilter(unit);
+    setTypeFilter('all');
+  }
+
+  function handleTypeClick(key: 'all' | ChaletType) {
+    setTypeFilter(key);
+    setUnitFilter(null);
+  }
 
   const [searchCheckIn, setSearchCheckIn] = useState('');
   const [searchCheckOut, setSearchCheckOut] = useState('');
@@ -48,7 +79,7 @@ export function Home() {
       <section data-aos="fade-up" className="relative min-h-[600px] flex items-center overflow-hidden bg-black">
         <video
           className="absolute inset-0 h-full w-full object-cover"
-          src="https://www.pexels.com/download/video/3970964/"
+          src="/IMG_7006.MP4"
           poster="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=80"
           autoPlay
           muted
@@ -125,7 +156,7 @@ export function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             {[
-              { value: '15', label: { en: 'Chalets & Resorts', ar: 'شاليه وفيلا' } },
+              { value: '10', label: { en: 'Chalets & Resorts', ar: 'شاليه وفيلا' } },
               { value: '500+', label: { en: 'Happy Guests', ar: 'ضيف سعيد' } },
               { value: '4.8', label: { en: 'Average Rating', ar: 'متوسط التقييم' } },
               { value: '3', label: { en: 'Payment Options', ar: 'خيار دفع' } },
@@ -141,47 +172,206 @@ export function Home() {
 
       {/* Featured chalets */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-         {/* Filter pills */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {([
-            { key: 'all', label: lang === 'ar' ? 'الكل' : 'All' },
-            { key: 'normal', label: lang === 'ar' ? 'قياسي' : 'Standard' },
-            { key: 'superior', label: lang === 'ar' ? 'سوبيريور' : 'Superior' },
-            { key: 'vip', label: 'VIP' },
-          ] as const).map(({ key, label }) => (
-            <button
-              key={key}
-              onClick={() => setTypeFilter(key)}
-              className={`relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                typeFilter === key
-                  ? 'text-gold-600 shadow-md'
-                  : 'bg-white border border-gray-200 text-gray-600 hover:border-gold-400 hover:text-gold-600'
-              }`}
-            >
-              {typeFilter === key && (
-                <motion.span
-                  layoutId="filter-pill"
-                  className="absolute inset-0 rounded-full bg-navy-800"
-                  style={{ zIndex: -1 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                />
-              )}
-              {label}
-            </button>
-          ))}
-        </div>
+
         {/* Header */}
-        <div className="flex items-end justify-between mb-6">
+        <div className="flex items-end justify-between mb-8">
           <div>
             <h2 className="text-3xl font-bold text-gray-900">{t('home.featured_title')}</h2>
             <p className="text-gray-500 mt-2">{t('home.featured_subtitle')}</p>
           </div>
           <Link to="/chalets" className="hidden sm:flex items-center gap-1 text-gold-600 hover:text-gold-700 font-medium text-sm">
-            View All <ChevronRight size={16} />
+            {lang === 'ar' ? 'عرض الكل' : 'View All'} <ChevronRight size={16} />
           </Link>
         </div>
 
-       
+        {/* ── Inventory panel ── */}
+        <div data-aos="fade-up" className="bg-white rounded-3xl border border-gray-100 shadow-md p-6 mb-10">
+          {/* Panel header */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <h3 className="text-lg font-bold text-gray-900">
+                {lang === 'ar' ? 'استعرض الوحدات' : 'Browse Units'}
+              </h3>
+              <p className="text-xs text-gray-400 mt-0.5">
+                {lang === 'ar' ? 'اختر وحدة لعرض تفاصيلها' : 'Select a unit to view its details'}
+              </p>
+            </div>
+
+            {/* Type filter pills */}
+            <div className="flex items-center gap-1.5 bg-gray-100 rounded-full p-1 self-start sm:self-auto">
+              {([
+                { key: 'all',      label: lang === 'ar' ? 'الكل' : 'All' },
+                { key: 'normal',   label: lang === 'ar' ? 'قياسي' : 'Standard' },
+                { key: 'superior', label: lang === 'ar' ? 'سوبيريور' : 'Superior' },
+                { key: 'vip',      label: 'VIP' },
+              ] as const).map(({ key, label }) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => handleTypeClick(key)}
+                  className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 ${
+                    typeFilter === key && !unitFilter
+                      ? 'text-gold-600 shadow-sm'
+                      : 'text-gray-500 hover:text-gold-600 hover:shadow-sm'
+                  }`}
+                >
+                  {typeFilter === key && !unitFilter && (
+                    <motion.span
+                      layoutId="home-type-pill"
+                      className="absolute inset-0 rounded-full bg-navy-800"
+                      style={{ zIndex: -1 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Unit chips */}
+          <AnimatePresence mode="popLayout">
+            <div className="space-y-4">
+              {/* Standard row */}
+              {filteredInventory.some((u) => u.type === 'normal') && (
+                <motion.div
+                  key="standard-row"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">
+                    {lang === 'ar' ? 'ستاندرد' : 'Standard'}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {filteredInventory.filter((u) => u.type === 'normal').map((u) => {
+                      const chalet = chalets.find((c) => c.id === u.id);
+                      const active = unitFilter === u.unit;
+                      return (
+                        <button
+                          key={u.unit}
+                          type="button"
+                          onClick={() => handleUnitClick(u.unit)}
+                          className={`group flex flex-col items-center justify-center w-[88px] h-[80px] rounded-2xl border-2 transition-all duration-200 ${
+                            active
+                              ? 'bg-gray-800 border-gray-800 shadow-lg shadow-gray-200'
+                              : 'bg-gray-50 border-gray-200 hover:border-gray-400 hover:bg-gray-100'
+                          }`}
+                        >
+                          <span className={`text-xl font-black tracking-tight ${active ? 'text-white' : 'text-gray-700'}`}>{u.unit}</span>
+                          <span className={`text-[10px] font-medium mt-0.5 ${active ? 'text-gray-300' : 'text-gray-400'}`}>{u.price} KWD</span>
+                          <span className={`text-[9px] mt-0.5 flex items-center gap-0.5 ${active ? 'text-emerald-300' : 'text-emerald-500'}`}>
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
+                            {chalet?.isAvailable ? (lang === 'ar' ? 'متاح' : 'Avail') : (lang === 'ar' ? 'محجوز' : 'Booked')}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Superior row */}
+              {filteredInventory.some((u) => u.type === 'superior') && (
+                <motion.div
+                  key="superior-row"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.25, delay: 0.05 }}
+                >
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-gold-500 mb-2">
+                    {lang === 'ar' ? 'سوبيريور' : 'Superior'}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {filteredInventory.filter((u) => u.type === 'superior').map((u) => {
+                      const chalet = chalets.find((c) => c.id === u.id);
+                      const active = unitFilter === u.unit;
+                      return (
+                        <button
+                          key={u.unit}
+                          type="button"
+                          onClick={() => handleUnitClick(u.unit)}
+                          className={`group flex flex-col items-center justify-center w-[88px] h-[80px] rounded-2xl border-2 transition-all duration-200 ${
+                            active
+                              ? 'bg-gold-500 border-gold-500 shadow-lg shadow-gold-100'
+                              : 'bg-gold-50 border-gold-200 hover:border-gold-400 hover:bg-gold-100'
+                          }`}
+                        >
+                          <span className={`text-xl font-black tracking-tight ${active ? 'text-white' : 'text-gold-700'}`}>{u.unit}</span>
+                          <span className={`text-[10px] font-medium mt-0.5 ${active ? 'text-gold-100' : 'text-gold-500'}`}>{u.price} KWD</span>
+                          <span className={`text-[9px] mt-0.5 flex items-center gap-0.5 ${active ? 'text-emerald-200' : 'text-emerald-500'}`}>
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
+                            {chalet?.isAvailable ? (lang === 'ar' ? 'متاح' : 'Avail') : (lang === 'ar' ? 'محجوز' : 'Booked')}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* VIP row */}
+              {filteredInventory.some((u) => u.type === 'vip') && (
+                <motion.div
+                  key="vip-row"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.25, delay: 0.1 }}
+                >
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-navy-600 mb-2">VIP</p>
+                  <div className="flex flex-wrap gap-2">
+                    {filteredInventory.filter((u) => u.type === 'vip').map((u) => {
+                      const chalet = chalets.find((c) => c.id === u.id);
+                      const active = unitFilter === u.unit;
+                      return (
+                        <button
+                          key={u.unit}
+                          type="button"
+                          onClick={() => handleUnitClick(u.unit)}
+                          className={`group flex flex-col items-center justify-center w-[88px] h-[80px] rounded-2xl border-2 transition-all duration-200 ${
+                            active
+                              ? 'bg-navy-800 border-navy-800 shadow-lg shadow-navy-100'
+                              : 'bg-navy-50 border-navy-200 hover:border-navy-400 hover:bg-navy-100'
+                          }`}
+                        >
+                          <span className={`text-sm font-black tracking-tight leading-none ${active ? 'text-white' : 'text-navy-700'}`}>{u.unit}</span>
+                          <span className={`text-[10px] font-medium mt-0.5 ${active ? 'text-navy-200' : 'text-navy-500'}`}>{u.price} KWD</span>
+                          <span className={`text-[9px] mt-0.5 flex items-center gap-0.5 ${active ? 'text-emerald-300' : 'text-emerald-500'}`}>
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
+                            {chalet?.isAvailable ? (lang === 'ar' ? 'متاح' : 'Avail') : (lang === 'ar' ? 'محجوز' : 'Booked')}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          </AnimatePresence>
+
+          {/* Active filter indicator */}
+          {(unitFilter || typeFilter !== 'all') && (
+            <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between">
+              <p className="text-xs text-gray-500">
+                {unitFilter
+                  ? (lang === 'ar' ? `عرض الوحدة: ${unitFilter}` : `Showing unit: ${unitFilter}`)
+                  : (lang === 'ar' ? `عرض: ${typeFilter === 'normal' ? 'ستاندرد' : typeFilter === 'superior' ? 'سوبيريور' : 'VIP'}` : `Showing: ${typeFilter}`)}
+              </p>
+              <button
+                type="button"
+                onClick={() => { setUnitFilter(null); setTypeFilter('all'); }}
+                className="text-xs text-gold-600 hover:text-gold-700 font-medium flex items-center gap-1"
+              >
+                {lang === 'ar' ? 'مسح الفلتر' : 'Clear filter'} ×
+              </button>
+            </div>
+          )}
+        </div>
+
+
 
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

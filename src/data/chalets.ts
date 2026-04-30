@@ -3,7 +3,7 @@ import type { Chalet } from '../types';
 const BASE = 'https://images.pexels.com/photos/';
 
 export const chalets: Chalet[] = [
-  // ─── NORMAL (5) ───────────────────────────────────────────────
+  // ─── NORMAL (4) ───────────────────────────────────────────────
   {
     id: 'c01',
     name: { en: 'Grande Standard A1', ar: 'غراند ستاندرد A1' },
@@ -12,11 +12,14 @@ export const chalets: Chalet[] = [
       ar: 'شاليه هادئ محاط بالخضرة الكثيفة، يوفر ملاذاً مريحاً للعائلات. مجهز بوسائل الراحة الحديثة وحديقة خاصة.',
     },
     type: 'normal',
-    basePrice: 550,
+    basePrice: 350,
     images: [
       `${BASE}34763215/pexels-photo-34763215.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}33636637/pexels-photo-33636637.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}34496702/pexels-photo-34496702.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36916378/pexels-photo-36916378.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}35172686/pexels-photo-35172686.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -31,9 +34,9 @@ export const chalets: Chalet[] = [
     size: 280,
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'garden'],
     location: {
-      lat: 24.7136, lng: 46.6753,
+      lat: 28.6553, lng: 48.3861,
       address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
+      region: { en: 'Al Khiran', ar: 'خيران' },
     },
     cancellationPolicy: 'flexible',
     bookingComUrl: 'https://www.booking.com',
@@ -47,15 +50,18 @@ export const chalets: Chalet[] = [
     id: 'c02',
     name: { en: 'Grande Standard A2', ar: 'غراند ستاندرد A2' },
     description: {
-      en: 'A classic chalet with traditional Arabian touches blended with modern comfort. Perfect for a family gathering.',
-      ar: 'شاليه كلاسيكي يجمع بين اللمسات العربية الأصيلة والراحة الحديثة. مثالي لتجمعات العائلة.',
+      en: 'A classic chalet with traditional touches blended with modern comfort. Perfect for a family gathering.',
+      ar: 'شاليه كلاسيكي يجمع بين اللمسات الأصيلة والراحة الحديثة. مثالي لتجمعات العائلة.',
     },
     type: 'normal',
-    basePrice: 600,
+    basePrice: 350,
     images: [
       `${BASE}36916378/pexels-photo-36916378.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}30898458/pexels-photo-30898458.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}32021575/pexels-photo-32021575.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34763215/pexels-photo-34763215.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34618647/pexels-photo-34618647.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}33915746/pexels-photo-33915746.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -70,9 +76,9 @@ export const chalets: Chalet[] = [
     size: 300,
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'security'],
     location: {
-      lat: 24.7200, lng: 46.6800,
+      lat: 28.6580, lng: 48.3890,
       address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
+      region: { en: 'Al Khiran', ar: 'خيران' },
     },
     cancellationPolicy: 'moderate',
     bookingComUrl: 'https://www.booking.com',
@@ -90,11 +96,14 @@ export const chalets: Chalet[] = [
       ar: 'الهدوء في أبهى صوره. يوفر هذا الشاليه ملاذاً هادئاً مع إطلالات بانورامية وشرفة خاصة فسيحة.',
     },
     type: 'normal',
-    basePrice: 500,
+    basePrice: 350,
     images: [
       `${BASE}36852532/pexels-photo-36852532.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}36852544/pexels-photo-36852544.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}34496701/pexels-photo-34496701.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}35857672/pexels-photo-35857672.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36767624/pexels-photo-36767624.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36816426/pexels-photo-36816426.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -109,9 +118,9 @@ export const chalets: Chalet[] = [
     size: 260,
     amenities: ['wifi', 'kitchen', 'bbq', 'parking', 'ac', 'garden'],
     location: {
-      lat: 24.7050, lng: 46.6700,
+      lat: 28.6520, lng: 48.3840,
       address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
+      region: { en: 'Al Khiran', ar: 'خيران' },
     },
     cancellationPolicy: 'flexible',
     isAvailable: true,
@@ -127,11 +136,14 @@ export const chalets: Chalet[] = [
       ar: 'شاليه مضيء وهوائي بديكورات نظيفة ومسبح خاص. مثالي للعائلات الباحثة عن الفخامة البسيطة.',
     },
     type: 'normal',
-    basePrice: 580,
+    basePrice: 350,
     images: [
       `${BASE}35857672/pexels-photo-35857672.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}34618647/pexels-photo-34618647.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}36486494/pexels-photo-36486494.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}33636637/pexels-photo-33636637.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36852532/pexels-photo-36852532.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34790702/pexels-photo-34790702.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -146,9 +158,9 @@ export const chalets: Chalet[] = [
     size: 270,
     amenities: ['pool', 'wifi', 'kitchen', 'parking', 'ac', 'cleaning'],
     location: {
-      lat: 24.7180, lng: 46.6720,
+      lat: 28.6540, lng: 48.3850,
       address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
+      region: { en: 'Al Khiran', ar: 'خيران' },
     },
     cancellationPolicy: 'moderate',
     isAvailable: true,
@@ -157,20 +169,23 @@ export const chalets: Chalet[] = [
     featured: true,
   },
 
-  // ─── SUPERIOR (5) ───────────────────────────────────────────────
+  // ─── SUPERIOR (4) ───────────────────────────────────────────────
   {
     id: 'c06',
     name: { en: 'Grande Superior B1', ar: 'غراند سوبيريور B1' },
     description: {
-      en: 'A stunning deluxe chalet with wave-inspired design, infinity pool, and premium furnishings throughout.',
+      en: 'A stunning superior chalet with wave-inspired design, infinity pool, and premium furnishings throughout.',
       ar: 'شاليه سوبيريور رائع بتصميم مستوحى من الأمواج، مسبح لا نهائي، وأثاث فاخر في كل مكان.',
     },
     type: 'superior',
-    basePrice: 1100,
+    basePrice: 500,
     images: [
       `${BASE}36767624/pexels-photo-36767624.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}34790702/pexels-photo-34790702.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}33125906/pexels-photo-33125906.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36916378/pexels-photo-36916378.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34763215/pexels-photo-34763215.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -185,9 +200,9 @@ export const chalets: Chalet[] = [
     size: 420,
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'cinema', 'security', 'cleaning'],
     location: {
-      lat: 24.7220, lng: 46.6850,
+      lat: 28.6600, lng: 48.3920,
       address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
+      region: { en: 'Al Khiran', ar: 'خيران' },
     },
     cancellationPolicy: 'moderate',
     bookingComUrl: 'https://www.booking.com',
@@ -201,15 +216,18 @@ export const chalets: Chalet[] = [
     id: 'c07',
     name: { en: 'Grande Superior B2', ar: 'غراند سوبيريور B2' },
     description: {
-      en: 'Set within lush gardens, this deluxe chalet combines natural beauty with premium amenities for an extraordinary stay.',
+      en: 'Set within lush gardens, this superior chalet combines natural beauty with premium amenities for an extraordinary stay.',
       ar: 'يقع داخل حدائق غنّاء، يجمع هذا الشاليه السوبيريور بين الجمال الطبيعي والمرافق الفاخرة لإقامة استثنائية.',
     },
     type: 'superior',
-    basePrice: 1200,
+    basePrice: 500,
     images: [
       `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}36816426/pexels-photo-36816426.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}29000012/pexels-photo-29000012.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36767624/pexels-photo-36767624.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}35172686/pexels-photo-35172686.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34618647/pexels-photo-34618647.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -224,9 +242,9 @@ export const chalets: Chalet[] = [
     size: 450,
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'jacuzzi', 'security', 'garden', 'cleaning'],
     location: {
-      lat: 24.7160, lng: 46.6870,
+      lat: 28.6570, lng: 48.3930,
       address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
+      region: { en: 'Al Khiran', ar: 'خيران' },
     },
     cancellationPolicy: 'moderate',
     bookingComUrl: 'https://www.booking.com',
@@ -240,15 +258,18 @@ export const chalets: Chalet[] = [
     id: 'c08',
     name: { en: 'Grande Superior B3', ar: 'غراند سوبيريور B3' },
     description: {
-      en: 'A moonlit retreat with rooftop terrace and stargazing deck. Premium deluxe experience under the Saudi sky.',
-      ar: 'ملاذ مضيء بضوء القمر مع شرفة على السطح ومنصة لمراقبة النجوم. تجربة سوبيريور فاخرة تحت السماء السعودية.',
+      en: 'A moonlit retreat with rooftop terrace and stargazing deck. Premium superior experience under the Kuwait sky.',
+      ar: 'ملاذ مضيء بضوء القمر مع شرفة على السطح ومنصة لمراقبة النجوم. تجربة سوبيريور فاخرة تحت سماء الكويت.',
     },
     type: 'superior',
-    basePrice: 1150,
+    basePrice: 500,
     images: [
       `${BASE}34618647/pexels-photo-34618647.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}28962539/pexels-photo-28962539.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}34559240/pexels-photo-34559240.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36916378/pexels-photo-36916378.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36816426/pexels-photo-36816426.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -263,9 +284,9 @@ export const chalets: Chalet[] = [
     size: 400,
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'cinema', 'security', 'cleaning', 'breakfast'],
     location: {
-      lat: 24.7250, lng: 46.6900,
+      lat: 28.6620, lng: 48.3950,
       address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
+      region: { en: 'Al Khiran', ar: 'خيران' },
     },
     cancellationPolicy: 'strict',
     bookingComUrl: 'https://www.booking.com',
@@ -282,11 +303,14 @@ export const chalets: Chalet[] = [
       ar: 'ديكورات داخلية رائعة مع نوافذ من الأرض إلى السقف، مسبح مدفأ، وتجربة سينما منزلية خاصة.',
     },
     type: 'superior',
-    basePrice: 1300,
+    basePrice: 500,
     images: [
       `${BASE}35172686/pexels-photo-35172686.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}28238364/pexels-photo-28238364.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}33915746/pexels-photo-33915746.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36767624/pexels-photo-36767624.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34790702/pexels-photo-34790702.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -301,9 +325,9 @@ export const chalets: Chalet[] = [
     size: 480,
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'cinema', 'jacuzzi', 'security', 'cleaning'],
     location: {
-      lat: 24.7080, lng: 46.6810,
+      lat: 28.6490, lng: 48.3870,
       address: { en: 'GrandeBeach Khairan, Kuwait', ar: 'غراند بيتش خيران، الكويت' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
+      region: { en: 'Al Khiran', ar: 'خيران' },
     },
     cancellationPolicy: 'moderate',
     bookingComUrl: 'https://www.booking.com',
@@ -323,11 +347,14 @@ export const chalets: Chalet[] = [
       ar: 'قمة الفخامة. فيلا ملكية بديكورات فاخرة ومسبحين لا نهائيين وخدمة طاهٍ خاص وإطلالات 360 درجة.',
     },
     type: 'vip',
-    basePrice: 2500,
+    basePrice: 750,
     images: [
       `${BASE}29000012/pexels-photo-29000012.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}11436776/pexels-photo-11436776.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}36852535/pexels-photo-36852535.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34763215/pexels-photo-34763215.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}35172686/pexels-photo-35172686.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36816426/pexels-photo-36816426.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -342,9 +369,9 @@ export const chalets: Chalet[] = [
     size: 700,
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'cinema', 'jacuzzi', 'security', 'cleaning', 'breakfast', 'garden'],
     location: {
-      lat: 24.7300, lng: 46.6950,
+      lat: 28.6650, lng: 48.3980,
       address: { en: 'GrandeBeach Khairan – VIP Wing, Kuwait', ar: 'غراند بيتش خيران – الجناح الملكي، الكويت' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
+      region: { en: 'Al Khiran', ar: 'خيران' },
     },
     cancellationPolicy: 'strict',
     bookingComUrl: 'https://www.booking.com',
@@ -362,11 +389,14 @@ export const chalets: Chalet[] = [
       ar: 'فيلتنا المميزة. معمار رائع بلمسات ذهبية وخدمة باتلر حصرية وملجأ سبا خاص.',
     },
     type: 'vip',
-    basePrice: 2800,
+    basePrice: 750,
     images: [
       `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
-      `${BASE}33400871/pexels-photo-33400871.jpeg?auto=compress&cs=tinysrgb&w=900`,
       `${BASE}36916378/pexels-photo-36916378.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}29000012/pexels-photo-29000012.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}34790702/pexels-photo-34790702.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}35172686/pexels-photo-35172686.jpeg?auto=compress&cs=tinysrgb&w=900`,
+      `${BASE}36767624/pexels-photo-36767624.jpeg?auto=compress&cs=tinysrgb&w=900`,
     ],
     bedrooms: [
       { type: 'master', beds: 1, hasEnsuite: true },
@@ -381,9 +411,9 @@ export const chalets: Chalet[] = [
     size: 800,
     amenities: ['pool', 'wifi', 'kitchen', 'bbq', 'parking', 'ac', 'gym', 'cinema', 'jacuzzi', 'security', 'cleaning', 'breakfast', 'garden', 'playground'],
     location: {
-      lat: 24.7320, lng: 46.6970,
+      lat: 28.6670, lng: 48.4000,
       address: { en: 'GrandeBeach Khairan – VIP Wing, Kuwait', ar: 'غراند بيتش خيران – الجناح الملكي، الكويت' },
-      region: { en: 'Riyadh', ar: 'الرياض' },
+      region: { en: 'Al Khiran', ar: 'خيران' },
     },
     cancellationPolicy: 'strict',
     bookingComUrl: 'https://www.booking.com',

@@ -26,7 +26,7 @@ export function Contact() {
         {/* Contact info */}
         <div className="flex flex-col gap-8">
           {[
-            { icon: Phone, label: 'Phone', value: '+966 50 000 0000' },
+            { icon: Phone, label: 'Phone', value: '+965 9097 6666' },
             { icon: Mail, label: 'Email', value: 'info@grandebeach.com.kw' },
             { icon: MapPin, label: 'Address', value: 'GrandeBeach Khairan, Kuwait' },
           ].map(({ icon: Icon, label, value }) => (
@@ -70,7 +70,7 @@ export function Contact() {
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   className="rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold-400"
-                  placeholder="+966 5x xxx xxxx"
+                  placeholder="+965 5xxx xxxx"
                 />
               </div>
             </div>

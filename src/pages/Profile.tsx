@@ -88,7 +88,7 @@ export function Profile() {
 
             <div className="mt-3 pt-3 border-t border-navy-700 flex justify-between text-xs">
               <span className="text-navy-300">{t('profile.total_spent')}</span>
-              <span className="text-white font-medium">{user.totalSpent.toLocaleString()} SAR</span>
+              <span className="text-white font-medium">{user.totalSpent.toLocaleString()} KWD</span>
             </div>
           </Card>
         </div>
@@ -132,7 +132,7 @@ export function Profile() {
                           {format(parseISO(booking.checkIn), 'dd MMM')} → {format(parseISO(booking.checkOut), 'dd MMM yyyy')}
                         </div>
                         <div className="flex items-center justify-between mt-2">
-                          <span className="text-sm font-semibold text-gray-900">{booking.totalAmount.toLocaleString()} SAR</span>
+                          <span className="text-sm font-semibold text-gray-900">{booking.totalAmount.toLocaleString()} KWD</span>
                           {(booking.status === 'confirmed' || booking.status === 'pending') && (
                             <Button
                               variant="ghost"

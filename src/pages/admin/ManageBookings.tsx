@@ -96,7 +96,7 @@ export function ManageBookings() {
                         <p className="text-xs text-gray-400">{b.nights} nights</p>
                       </td>
                       <td className="px-4 py-3">
-                        <p className="font-semibold text-gray-900">{b.totalAmount.toLocaleString()} SAR</p>
+                        <p className="font-semibold text-gray-900">{b.totalAmount.toLocaleString()} KWD</p>
                         <p className="text-xs text-gray-400 capitalize">{b.paymentPlan} pay</p>
                       </td>
                       <td className="px-4 py-3 capitalize text-gray-600">{b.paymentMethod}</td>

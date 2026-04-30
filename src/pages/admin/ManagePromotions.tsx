@@ -89,7 +89,7 @@ export function ManagePromotions() {
 
             <div className="flex flex-wrap gap-2 mb-3">
               <Badge variant="gold" size="sm">
-                {promo.type === 'percentage' ? `-${promo.value}%` : `-${promo.value} SAR`}
+                {promo.type === 'percentage' ? `-${promo.value}%` : `-${promo.value} KWD`}
               </Badge>
               <Badge variant="gray" size="sm" className="capitalize">{promo.applicableTo}</Badge>
               <Badge variant={promo.isActive ? 'green' : 'red'} size="sm">{promo.isActive ? 'Active' : 'Inactive'}</Badge>
@@ -98,7 +98,7 @@ export function ManagePromotions() {
             <div className="text-xs text-gray-500 space-y-0.5">
               <p>Valid: {format(parseISO(promo.validFrom), 'dd MMM yy')} → {format(parseISO(promo.validTo), 'dd MMM yy')}</p>
               <p>Used: {promo.usageCount}{promo.usageLimit ? ` / ${promo.usageLimit}` : ''} times</p>
-              {promo.minBookingAmount && <p>Min. booking: {promo.minBookingAmount.toLocaleString()} SAR</p>}
+              {promo.minBookingAmount && <p>Min. booking: {promo.minBookingAmount.toLocaleString()} KWD</p>}
             </div>
           </Card>
         ))}

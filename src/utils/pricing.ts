@@ -1,6 +1,6 @@
 import { addDays, eachDayOfInterval, parseISO, isWithinInterval, getDay, differenceInCalendarDays } from 'date-fns';
 import type { Chalet, PricingRule, Promotion, PricingBreakdown } from '../types';
-import { WEEKEND_DAYS, TAX_RATE, DEPOSIT_RATE, LOYALTY_POINTS_TO_SAR, MAX_LOYALTY_DISCOUNT_PERCENT } from './constants';
+import { WEEKEND_DAYS, TAX_RATE, DEPOSIT_RATE, LOYALTY_POINTS_TO_KWD, MAX_LOYALTY_DISCOUNT_PERCENT } from './constants';
 
 export function isWeekendDay(date: Date): boolean {
   return WEEKEND_DAYS.includes(getDay(date));
@@ -87,7 +87,7 @@ export function calculatePricing(
   }
 
   const maxLoyaltyDiscount = subtotal * MAX_LOYALTY_DISCOUNT_PERCENT;
-  const loyaltyDiscount = Math.min(loyaltyPointsToRedeem * LOYALTY_POINTS_TO_SAR, maxLoyaltyDiscount);
+  const loyaltyDiscount = Math.min(loyaltyPointsToRedeem * LOYALTY_POINTS_TO_KWD, maxLoyaltyDiscount);
 
   const taxable = Math.max(0, subtotal - discount - loyaltyDiscount);
   const tax = Math.round(taxable * TAX_RATE);

@@ -28,13 +28,13 @@ export function AdminDashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           label={t('admin.total_revenue')}
-          value={`${totalRevenue.toLocaleString()} SAR`}
+          value={`${totalRevenue.toLocaleString()} KWD`}
           icon={<DollarSign size={20} />}
           color="gold"
         />
         <StatCard
           label={t('admin.monthly_revenue')}
-          value={`${monthlyRevenue.toLocaleString()} SAR`}
+          value={`${monthlyRevenue.toLocaleString()} KWD`}
           sub="This month"
           icon={<TrendingUp size={20} />}
           color="green"
