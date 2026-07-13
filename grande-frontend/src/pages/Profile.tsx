@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Award, Calendar, Pencil, X, Lock, Hash } from 'lucide-react';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useAppDispatch } from '../hooks/useAppDispatch';
-import { fetchMyBookings, cancelUserBooking } from '../store/slices/bookingSlice';
+import { fetchMyBookings } from '../store/slices/bookingSlice';
 import { fetchProfile, updateProfile, changePassword } from '../store/slices/authSlice';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
@@ -28,8 +28,6 @@ export function Profile() {
   const [pwOpen, setPwOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [pwSaving, setPwSaving] = useState(false);
-  const [cancellingId, setCancellingId] = useState<string | null>(null);
-
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -67,25 +65,6 @@ export function Profile() {
     if (tab === 'past') return s === 'completed' || s === 'checkedout';
     return s === 'cancelled';
   });
-
-  async function handleCancel(id: string) {
-    if (!confirm(t('common.confirm'))) return;
-    setCancellingId(id);
-    try {
-      const result = await cancelUserBooking(id);
-      if (result.success) {
-        toast.success(lang === 'ar' ? 'تم إلغاء الحجز' : 'Booking cancelled');
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (dispatch as any)(fetchMyBookings());
-      } else {
-        toast.error(result.message || 'Failed to cancel booking');
-      }
-    } catch {
-      toast.error('Network error');
-    } finally {
-      setCancellingId(null);
-    }
-  }
 
   async function handleSaveProfile() {
     setSaving(true);
@@ -262,7 +241,6 @@ export function Profile() {
               {filteredBookings.map((booking) => {
                 const chalet = chalets.find((c) => c.id === booking.chaletId);
                 const s = booking.status.toLowerCase();
-                const canCancel = s === 'confirmed' || s === 'pending';
                 return (
                   <Card key={booking.id} padding="none" className="overflow-hidden">
                     <div className="flex gap-4 p-4">
@@ -292,19 +270,8 @@ export function Profile() {
                           {booking.checkInDate && format(parseISO(booking.checkInDate), 'dd MMM')} → {booking.checkOutDate && format(parseISO(booking.checkOutDate), 'dd MMM yyyy')}
                           {' · '}{booking.nights} {lang === 'ar' ? 'ليالي' : 'nights'}
                         </div>
-                        <div className="flex items-center justify-between mt-2">
+                        <div className="flex items-center mt-2">
                           <span className="text-sm font-semibold text-gray-900">{booking.totalAmount.toLocaleString()} KWD</span>
-                          {canCancel && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleCancel(booking.id)}
-                              isLoading={cancellingId === booking.id}
-                              className="text-red-600 hover:bg-red-50 text-xs"
-                            >
-                              {t('profile.cancel_booking')}
-                            </Button>
-                          )}
                         </div>
                       </div>
                     </div>
