@@ -1,6 +1,6 @@
 ﻿import { useState, useRef, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Search, Star, Shield, Clock, Award, ChevronLeft, ChevronRight, MapPin, X } from 'lucide-react';
+import { Search, Star, Shield, Clock, Award, ChevronLeft, ChevronRight, MapPin, X, CheckCircle, Quote } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../hooks/useAppSelector';
@@ -9,7 +9,29 @@ import { RequestModal } from '../components/booking/RequestModal';
 import { Button } from '../components/ui/Button';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { setFilter, fetchChalets } from '../store/slices/chaletsSlice';
+import { localImagesForChalet } from '../data/chaletImages';
 import type { ChaletType } from '../types';
+
+const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? '';
+
+interface HomeReview {
+  id: string;
+  chaletId: string;
+  chaletName: string;
+  guestName: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+}
+
+async function fetchHomeReviews(): Promise<HomeReview[]> {
+  try {
+    const res = await fetch(`${API_BASE}/api/reviews?page=1&pageSize=6`);
+    if (!res.ok) return [];
+    const json = await res.json() as { data?: { items?: HomeReview[] } };
+    return json.data?.items ?? [];
+  } catch { return []; }
+}
 import p01 from '../assets/IMG_20260615_131431641_HDR.jpg';
 import p02 from '../assets/IMG_20260615_133901366_HDR_AE.jpg';
 import p03 from '../assets/IMG_20260615_134043284_HDR_AE.jpg';
@@ -210,6 +232,9 @@ export function Home() {
     setTypeFilter(key);
     setUnitFilter(null);
   }
+
+  const [homeReviews, setHomeReviews] = useState<HomeReview[]>([]);
+  useEffect(() => { fetchHomeReviews().then(setHomeReviews); }, []);
 
   const [searchCheckIn, setSearchCheckIn] = useState('');
   const [searchCheckOut, setSearchCheckOut] = useState('');
@@ -1043,6 +1068,121 @@ export function Home() {
           </div>
         </motion.div>
       </section>
+
+      {/* ── Guest Reviews ── */}
+      {homeReviews.length > 0 && (
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              className="flex items-end justify-between mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div>
+                <p className="text-xs font-bold tracking-[0.2em] uppercase text-gold-600 mb-2">
+                  {lang === 'ar' ? 'ما يقوله ضيوفنا' : 'What Our Guests Say'}
+                </p>
+                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
+                  {lang === 'ar' ? 'آراء الضيوف' : 'Guest Reviews'}
+                </h2>
+              </div>
+              <Link
+                to="/reviews"
+                className="text-sm font-medium text-gold-600 hover:text-gold-700 underline underline-offset-4 hidden sm:block"
+              >
+                {lang === 'ar' ? 'عرض الكل' : 'View all reviews'}
+              </Link>
+            </motion.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {homeReviews.map((r, i) => {
+                const chalet = chalets.find(
+                  (c) => c.id === r.chaletId || c.name.en.toLowerCase() === r.chaletName?.toLowerCase()
+                );
+                const img = chalet?.images?.[0] ?? localImagesForChalet(r.chaletName ?? '')[0];
+                const chaletDisplayName = chalet
+                  ? (lang === 'ar' ? chalet.name.ar : chalet.name.en)
+                  : r.chaletName;
+                const typeLabel = chalet
+                  ? chalet.type === 'vip' ? 'VIP'
+                    : chalet.type === 'superior' ? (lang === 'ar' ? 'سوبيريور' : 'Superior')
+                    : (lang === 'ar' ? 'عادي' : 'Standard')
+                  : null;
+                const typeCls = chalet
+                  ? chalet.type === 'vip' ? 'bg-gold-50 text-gold-700'
+                    : chalet.type === 'superior' ? 'bg-purple-50 text-purple-700'
+                    : 'bg-blue-50 text-blue-700'
+                  : '';
+                const avatarColors = ['bg-blue-100 text-blue-700','bg-emerald-100 text-emerald-700','bg-gold-100 text-gold-700','bg-purple-100 text-purple-700','bg-rose-100 text-rose-700'];
+                const avatarCls = avatarColors[r.guestName.charCodeAt(0) % avatarColors.length];
+
+                return (
+                  <motion.div
+                    key={r.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.08 }}
+                    className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+                  >
+                    {/* Chalet image */}
+                    {img && (
+                      <div className="relative h-40 overflow-hidden">
+                        <img src={img} alt={chaletDisplayName} className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                        <div className="absolute bottom-2 left-3 right-3 flex items-end justify-between">
+                          <span className="text-white text-xs font-semibold drop-shadow truncate max-w-[160px]">
+                            {chaletDisplayName}
+                          </span>
+                          {typeLabel && (
+                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${typeCls}`}>
+                              {typeLabel}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="p-4">
+                      <Quote size={18} className="text-gold-300 mb-2" />
+                      <p className="text-gray-600 text-sm leading-relaxed line-clamp-3 mb-4">
+                        {r.comment || (lang === 'ar' ? 'تجربة رائعة لا تُنسى.' : 'An unforgettable experience.')}
+                      </p>
+
+                      <div className="flex items-center gap-0.5 mb-3">
+                        {[1,2,3,4,5].map((s) => (
+                          <Star key={s} size={13} className={s <= r.rating ? 'text-amber-400 fill-amber-400' : 'text-gray-200 fill-gray-200'} />
+                        ))}
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${avatarCls}`}>
+                            {r.guestName.charAt(0).toUpperCase()}
+                          </div>
+                          <span className="text-sm font-medium text-gray-800">{r.guestName}</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-[11px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-lg">
+                          <CheckCircle size={10} />
+                          <span>{lang === 'ar' ? 'موثّق' : 'Verified'}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <div className="text-center mt-8 sm:hidden">
+              <Link to="/reviews">
+                <Button variant="outline">{lang === 'ar' ? 'عرض جميع التقييمات' : 'View All Reviews'}</Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA banner */}
       <section data-aos="fade-up" className="py-16 px-4 sm:px-6 lg:px-8">
