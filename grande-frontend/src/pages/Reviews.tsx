@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
-import { Star, Quote, CheckCircle, Award, Globe, Loader2, RefreshCw, MessageSquare } from 'lucide-react';
+import { Star, Quote, CheckCircle, Award, Loader2, RefreshCw, MessageSquare, Home } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { FaGoogle, FaTripadvisor, FaAirbnb } from 'react-icons/fa';
 import { SiBookingdotcom } from 'react-icons/si';
 import { format, parseISO } from 'date-fns';
+import { useAppSelector } from '../hooks/useAppSelector';
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { fetchChalets } from '../store/slices/chaletsSlice';
+import { localImagesForChalet } from '../data/chaletImages';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL as string;
 
@@ -116,14 +120,29 @@ const cardVariants: Variants = {
 
 type FilterMode = 'all' | 5 | 4 | 3;
 
+const TYPE_LABEL: Record<string, { en: string; ar: string; cls: string }> = {
+  normal:   { en: 'Standard', ar: 'عادي',    cls: 'bg-blue-50 text-blue-700' },
+  superior: { en: 'Superior', ar: 'سوبيريور', cls: 'bg-purple-50 text-purple-700' },
+  vip:      { en: 'VIP',      ar: 'VIP',      cls: 'bg-gold-50 text-gold-700' },
+};
+
 export function Reviews() {
-  useTranslation();
+  const { i18n } = useTranslation();
+  const lang = i18n.language as 'en' | 'ar';
+  const dispatch = useAppDispatch();
+  const chalets = useAppSelector((s) => s.chalets.chalets);
+
   const [reviews, setReviews]     = useState<ApiReview[]>([]);
   const [meta, setMeta]           = useState<PageMeta | null>(null);
   const [loading, setLoading]     = useState(true);
   const [page, setPage]           = useState(1);
   const [filter, setFilter]       = useState<FilterMode>('all');
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (chalets.length === 0) (dispatch as any)(fetchChalets());
+  }, [dispatch, chalets.length]);
 
   useEffect(() => {
     setLoading(true);
@@ -323,7 +342,18 @@ export function Reviews() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <AnimatePresence mode="popLayout">
-                  {reviews.map((r, i) => (
+                  {reviews.map((r, i) => {
+                    const chalet = chalets.find((c) =>
+                      c.id === r.chaletId ||
+                      c.name.en.toLowerCase() === r.chaletName?.toLowerCase()
+                    );
+                    const img = chalet?.images?.[0] ?? localImagesForChalet(r.chaletName ?? '')[0];
+                    const typeInfo = chalet ? TYPE_LABEL[chalet.type] : null;
+                    const chaletDisplayName = chalet
+                      ? (lang === 'ar' ? chalet.name.ar : chalet.name.en)
+                      : r.chaletName;
+
+                    return (
                     <motion.div
                       key={r.id}
                       custom={i}
@@ -334,45 +364,62 @@ export function Reviews() {
                       layout
                       onHoverStart={() => setHoveredId(r.id)}
                       onHoverEnd={() => setHoveredId(null)}
-                      className={`bg-white rounded-2xl p-5 shadow-sm border transition-all duration-300 cursor-default ${
+                      className={`bg-white rounded-2xl shadow-sm border overflow-hidden transition-all duration-300 cursor-default ${
                         hoveredId === r.id ? 'shadow-lg border-gold-300 -translate-y-1' : 'border-gray-100'
                       }`}
                     >
-                      {/* Card header */}
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <AvatarInitial name={r.guestName} size={44} />
-                          <div>
-                            <p className="font-semibold text-gray-900 text-sm">{r.guestName}</p>
-                            <p className="text-gray-400 text-xs">{fmtDate(r.createdAt)}</p>
+                      {/* Chalet image */}
+                      {img && (
+                        <div className="relative h-36 w-full overflow-hidden">
+                          <img src={img} alt={chaletDisplayName} className="w-full h-full object-cover" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                          <div className="absolute bottom-2 left-3 right-3 flex items-end justify-between">
+                            <div className="flex items-center gap-1.5">
+                              <Home size={12} className="text-white/80" />
+                              <span className="text-white text-xs font-semibold drop-shadow truncate max-w-[160px]">
+                                {chaletDisplayName}
+                              </span>
+                            </div>
+                            {typeInfo && (
+                              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${typeInfo.cls}`}>
+                                {lang === 'ar' ? typeInfo.ar : typeInfo.en}
+                              </span>
+                            )}
                           </div>
                         </div>
-                        <div className="flex items-center gap-1 text-xs text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg">
-                          <CheckCircle size={11} />
-                          <span>Verified</span>
-                        </div>
-                      </div>
-
-                      <StarRow rating={r.rating} size={14} />
-
-                      {r.comment ? (
-                        <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mt-2">{r.comment}</p>
-                      ) : (
-                        <p className="text-gray-300 text-sm italic mt-2">No comment provided</p>
                       )}
 
-                      {/* Card footer */}
-                      <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-50">
-                        <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                          <Globe size={12} />
-                          <span className="text-gold-600 font-medium truncate max-w-[140px]">{r.chaletName}</span>
+                      <div className="p-4">
+                        {/* Card header */}
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex items-center gap-3">
+                            <AvatarInitial name={r.guestName} size={40} />
+                            <div>
+                              <p className="font-semibold text-gray-900 text-sm">{r.guestName}</p>
+                              <p className="text-gray-400 text-xs">{fmtDate(r.createdAt)}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-1 text-xs text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg flex-shrink-0">
+                            <CheckCircle size={11} />
+                            <span>Verified</span>
+                          </div>
                         </div>
-                        <span className="text-[11px] font-bold text-amber-500">
-                          {r.rating}/5
-                        </span>
+
+                        <StarRow rating={r.rating} size={14} />
+
+                        {r.comment ? (
+                          <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mt-2">{r.comment}</p>
+                        ) : (
+                          <p className="text-gray-300 text-sm italic mt-2">No comment provided</p>
+                        )}
+
+                        <div className="flex items-center justify-end mt-3 pt-3 border-t border-gray-50">
+                          <span className="text-[11px] font-bold text-amber-500">{r.rating}/5</span>
+                        </div>
                       </div>
                     </motion.div>
-                  ))}
+                    );
+                  })}
                 </AnimatePresence>
               </div>
             )}
