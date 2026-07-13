@@ -236,6 +236,13 @@ export function Home() {
   const [homeReviews, setHomeReviews] = useState<HomeReview[]>([]);
   useEffect(() => { fetchHomeReviews().then(setHomeReviews); }, []);
 
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().catch(() => {});
+  }, []);
+
   const [searchCheckIn, setSearchCheckIn] = useState('');
   const [searchCheckOut, setSearchCheckOut] = useState('');
   const [searchGuests, setSearchGuests] = useState('2');
@@ -244,6 +251,7 @@ export function Home() {
   const [modalCard, setModalCard] = useState<TabCard | null>(null);
   const [requestChalet, setRequestChalet] = useState<{ id: string; name: string } | null>(null);
   const [modalPhotoIdx, setModalPhotoIdx] = useState(0);
+  const videoRef       = useRef<HTMLVideoElement>(null);
   const diningRef      = useRef<HTMLDivElement>(null);
   const activitiesRef  = useRef<HTMLDivElement>(null);
   const kuwaitRef      = useRef<HTMLDivElement>(null);
@@ -274,6 +282,7 @@ export function Home() {
       {/* Hero */}
       <section className="relative min-h-[720px] flex flex-col items-center justify-center overflow-hidden bg-black">
         <video
+          ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"
           src="/IMG_8916.MP4"
           autoPlay
