@@ -82,14 +82,6 @@ export function Register() {
             <Button type="submit" fullWidth size="lg" isLoading={isLoading}>{t('auth.register_btn')}</Button>
           </form>
 
-          <div className="flex items-center gap-3 my-4">
-            <div className="flex-1 border-t border-gray-200" />
-            <span className="text-xs text-gray-400">{t('auth.or')}</span>
-            <div className="flex-1 border-t border-gray-200" />
-          </div>
-
-          <Button variant="outline" fullWidth onClick={() => navigate('/chalets')}>{t('auth.guest_btn')}</Button>
-
           {/* Loyalty perk */}
           <div className="mt-4 p-3 bg-gold-50 rounded-xl text-xs text-gold-700">
             🌟 Join our Loyalty Program – earn points with every stay and unlock exclusive benefits
