@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useAppSelector } from '../hooks/useAppSelector';
-import { loginWithAPI, clearError, continueAsGuest } from '../store/slices/authSlice';
+import { loginWithAPI, clearError } from '../store/slices/authSlice';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
 
@@ -80,19 +80,6 @@ export function Login() {
             <Button type="submit" fullWidth size="lg" isLoading={isLoading}>{t('auth.login_btn')}</Button>
           </form>
 
-          <div className="flex items-center gap-3 my-4">
-            <div className="flex-1 border-t border-gray-200" />
-            <span className="text-xs text-gray-400">{t('auth.or')}</span>
-            <div className="flex-1 border-t border-gray-200" />
-          </div>
-
-          <Button
-            variant="outline"
-            fullWidth
-            onClick={() => { dispatch(continueAsGuest()); navigate('/chalets'); }}
-          >
-            {t('auth.guest_btn')}
-          </Button>
         </div>
 
         <p className="text-center text-sm text-gray-500 mt-5">
