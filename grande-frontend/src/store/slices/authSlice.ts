@@ -285,7 +285,7 @@ export async function resetPassword(payload: { email: string; token: string; new
 
 // ─── FETCH PROFILE THUNK ─────────────────────────────────────────────────────
 // GET /api/Auth/profile — requires Bearer token in Authorization header
-async function tryRefreshToken(): Promise<string | null> {
+export async function tryRefreshToken(): Promise<string | null> {
   const refreshToken = localStorage.getItem('refresh_token');
   if (!refreshToken) return null;
   try {

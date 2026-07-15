@@ -119,7 +119,9 @@ function buildChaletParams(filters?: ChaletFilters, page = 1): URLSearchParams {
 export const fetchChalets = createAsyncThunk('chalets/fetchAll', async (filters?: ChaletFilters) => {
   const params = buildChaletParams(filters, 1);
   const firstRes  = await fetch(`${API_BASE}/api/Chalets?${params}`);
+  if (!firstRes.ok) throw new Error(`Chalets fetch failed: ${firstRes.status}`);
   const firstJson = await firstRes.json();
+  if (!firstJson.data) throw new Error('Chalets response missing data');
   const { items, totalPages } = firstJson.data as { items: ApiChalet[]; totalPages: number };
 
   if (totalPages <= 1) return items;

@@ -10,7 +10,12 @@
       "Bash(git restore *)",
       "Bash(git remote *)",
       "Bash(rm -rf .git)",
-      "Bash(git init *)"
+      "Bash(git init *)",
+      "Bash(cmdkey /delete:LegacyGeneric:target=git:https://github.com)",
+      "Bash(cmdkey /delete:LegacyGeneric:target=git:https://Omniasafwatt@github.com)",
+      "Bash(cmdkey /delete:LegacyGeneric:target=git:https://devTeam26@github.com)",
+      "Bash(git config *)",
+      "Bash(git credential *)"
     ]
   }
 }

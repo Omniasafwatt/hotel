@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import { useAppSelector } from './hooks/useAppSelector';
 import { useAppDispatch } from './hooks/useAppDispatch';
 import { fetchChalets } from './store/slices/chaletsSlice';
+import { tryRefreshToken } from './store/slices/authSlice';
 import { Toaster } from 'react-hot-toast';
 import AOS from "aos";
 import 'aos/dist/aos.css';
@@ -47,10 +48,19 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 function AppRouter() {
   const location = useLocation();
   const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAppSelector((s) => s.auth);
 
   useEffect(() => {
     dispatch(fetchChalets());
   }, [dispatch]);
+
+  // Proactively refresh the access token every 10 minutes so photos and API
+  // calls never fail mid-session due to token expiration.
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    const id = setInterval(() => { void tryRefreshToken(); }, 10 * 60 * 1000);
+    return () => clearInterval(id);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     AOS.init({

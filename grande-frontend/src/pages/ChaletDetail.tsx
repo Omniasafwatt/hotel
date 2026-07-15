@@ -481,7 +481,7 @@ export function ChaletDetail() {
               {[
                 { icon: LucideIcons.Home,              label: 'Houses' },
                 { icon: LucideIcons.UtensilsCrossed,   label: 'Kitchen' },
-                { icon: LucideIcons.Building2,         label: 'City view' },
+                { icon: LucideIcons.Sunset,            label: 'Beach view' },
                 { icon: LucideIcons.TreePine,          label: 'Garden' },
                 { icon: LucideIcons.Waves,             label: 'Swimming pool' },
                 { icon: LucideIcons.Flame,             label: 'BBQ facilities' },
