@@ -39,6 +39,7 @@ interface ApiVerification {
   customerPhone: string;
   idCardUrl: string;
   photoUrl: string;
+  signatureUrl: string | null;
   status: string;
   statusName: string;
   submittedAt: string;
@@ -293,6 +294,21 @@ function DetailModal({ userId, onClose, onAction }: { userId: string; onClose: (
                     )}
                   </div>
                 </div>
+                {/* Signature */}
+                {data.signatureUrl && (
+                  <div className="space-y-1.5 col-span-2">
+                    <p className="text-xs text-gray-400 font-medium">Signature</p>
+                    <button
+                      onClick={() => setLightbox(data.signatureUrl!)}
+                      className="relative w-full h-24 rounded-xl overflow-hidden border border-gray-100 bg-white hover:ring-2 hover:ring-gold-400 transition-all group flex items-center justify-center"
+                    >
+                      <img src={data.signatureUrl} alt="Signature" className="max-h-full max-w-full object-contain p-2" />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                        <Eye size={20} className="text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                    </button>
+                  </div>
+                )}
                 <p className="text-[11px] text-gray-400">Click an image to view full size</p>
               </div>
 

@@ -715,27 +715,6 @@ export function ChaletDetail() {
             </div>
           </div>
 
-          {/* Map */}
-          <div data-aos="fade-up" className="bg-white rounded-2xl border border-gray-200 shadow-md p-4">
-            <h2 className="text-sm font-semibold text-gray-900 mb-2.5 flex items-center gap-1.5">
-              <MapPin size={13} className="text-gold-500" /> Location
-            </h2>
-            <div className="rounded-xl overflow-hidden bg-gradient-to-br from-navy-50 to-blue-50 h-[160px] flex items-center justify-center border border-gray-100">
-              <a
-                href={chalet.googleMapsUrl || `https://www.google.com/maps?q=${chalet.location.lat},${chalet.location.lng}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 text-gray-400 hover:text-gold-600 transition-colors group"
-              >
-                <div className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center group-hover:shadow-gold-200/60 group-hover:shadow-lg transition-all">
-                  <MapPin size={18} className="text-gold-500" />
-                </div>
-                <span className="text-xs font-medium">View on Google Maps</span>
-              </a>
-            </div>
-            <p className="text-xs text-gray-400 mt-2">{chalet.location.address[lang]}</p>
-          </div>
-
           {/* About this property */}
           <div data-aos="fade-up" className="bg-white rounded-2xl border border-gray-200 shadow-md overflow-hidden">
             <div className="bg-gradient-to-r from-navy-800 to-navy-700 px-5 py-4">

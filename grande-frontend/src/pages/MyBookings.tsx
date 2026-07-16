@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import {
@@ -52,12 +52,13 @@ async function apiGetMyVerification(): Promise<MyVerification | null> {
   } catch { return null; }
 }
 
-async function apiSubmitVerification(bookingId: string, idCard: File, photo: File) {
+async function apiSubmitVerification(bookingId: string, idCard: File, photo: File, signatureData?: string) {
   try {
     const fd = new FormData();
     fd.append('IdCard', idCard);
     fd.append('Photo', photo);
     fd.append('BookingId', bookingId);
+    if (signatureData) fd.append('SignatureData', signatureData);
     const token = getToken();
     const res = await fetch(`${API_BASE}/api/Verification`, {
       method: 'POST',
@@ -300,6 +301,110 @@ function ReviewModal({ bookingId, chaletName, onClose, onSuccess }: {
   );
 }
 
+// ── SignaturePad ───────────────────────────────────────────────────────────────
+
+function SignaturePad({ onChange, lang }: { onChange: (data: string | null) => void; lang: 'en' | 'ar' }) {
+  const canvasRef    = useRef<HTMLCanvasElement>(null);
+  const drawing      = useRef(false);
+  const lastPos      = useRef<{ x: number; y: number } | null>(null);
+  const [hasSig, setHasSig] = useState(false);
+
+  function getXY(e: MouseEvent | TouchEvent, canvas: HTMLCanvasElement) {
+    const rect = canvas.getBoundingClientRect();
+    const src  = 'touches' in e ? e.touches[0] : e;
+    return {
+      x: (src.clientX - rect.left) * (canvas.width  / rect.width),
+      y: (src.clientY - rect.top)  * (canvas.height / rect.height),
+    };
+  }
+
+  function onStart(e: React.MouseEvent | React.TouchEvent) {
+    e.preventDefault();
+    drawing.current = true;
+    const pos = getXY(e.nativeEvent, canvasRef.current!);
+    lastPos.current = pos;
+    const ctx = canvasRef.current!.getContext('2d')!;
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, 1, 0, Math.PI * 2);
+    ctx.fillStyle = '#1e293b';
+    ctx.fill();
+  }
+
+  function onMove(e: React.MouseEvent | React.TouchEvent) {
+    if (!drawing.current || !lastPos.current) return;
+    e.preventDefault();
+    const canvas = canvasRef.current!;
+    const ctx    = canvas.getContext('2d')!;
+    const pos    = getXY(e.nativeEvent, canvas);
+    ctx.beginPath();
+    ctx.moveTo(lastPos.current.x, lastPos.current.y);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.strokeStyle = '#1e293b';
+    ctx.lineWidth   = 2.2;
+    ctx.lineCap     = 'round';
+    ctx.lineJoin    = 'round';
+    ctx.stroke();
+    lastPos.current = pos;
+    setHasSig(true);
+    onChange(canvas.toDataURL('image/png'));
+  }
+
+  function onEnd() {
+    drawing.current = false;
+    lastPos.current = null;
+  }
+
+  function clear() {
+    const canvas = canvasRef.current!;
+    canvas.getContext('2d')!.clearRect(0, 0, canvas.width, canvas.height);
+    setHasSig(false);
+    onChange(null);
+  }
+
+  return (
+    <div className="space-y-2">
+      <div className={`relative rounded-2xl overflow-hidden border-2 transition-colors ${hasSig ? 'border-gold-400 bg-amber-50/30' : 'border-dashed border-gray-200 bg-white'}`}>
+        {/* Baseline */}
+        <div className="absolute bottom-8 inset-x-6 border-b border-dashed border-gray-200 pointer-events-none" />
+        <canvas
+          ref={canvasRef}
+          width={600}
+          height={160}
+          className="w-full touch-none cursor-crosshair block"
+          onMouseDown={onStart}
+          onMouseMove={onMove}
+          onMouseUp={onEnd}
+          onMouseLeave={onEnd}
+          onTouchStart={onStart}
+          onTouchMove={onMove}
+          onTouchEnd={onEnd}
+        />
+        {!hasSig && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <p className="text-sm text-gray-300 select-none tracking-wide">
+              {lang === 'ar' ? 'وقّع هنا...' : 'Sign here...'}
+            </p>
+          </div>
+        )}
+        {hasSig && (
+          <div className="absolute top-2 end-2">
+            <span className="text-[10px] bg-gold-100 text-gold-700 font-semibold px-2 py-0.5 rounded-full">
+              {lang === 'ar' ? 'تم التوقيع ✓' : 'Signed ✓'}
+            </span>
+          </div>
+        )}
+      </div>
+      {hasSig && (
+        <button type="button" onClick={clear}
+          className="flex items-center gap-1 text-xs text-red-400 hover:text-red-600 transition-colors">
+          <X size={11} />
+          {lang === 'ar' ? 'مسح التوقيع' : 'Clear signature'}
+        </button>
+      )}
+    </div>
+  );
+}
+
 // ── VerificationModal ──────────────────────────────────────────────────────────
 
 function VerificationModal({ bookingId, onClose, onSuccess }: {
@@ -307,17 +412,19 @@ function VerificationModal({ bookingId, onClose, onSuccess }: {
 }) {
   const { i18n } = useTranslation();
   const lang = i18n.language as 'en' | 'ar';
-  const [idCard, setIdCard]     = useState<File | null>(null);
-  const [photo, setPhoto]       = useState<File | null>(null);
-  const [saving, setSaving]     = useState(false);
-  const [idKey, setIdKey]       = useState(0);
-  const [photoKey, setPhotoKey] = useState(0);
+  const [idCard, setIdCard]         = useState<File | null>(null);
+  const [photo, setPhoto]           = useState<File | null>(null);
+  const [signatureData, setSigData] = useState<string | null>(null);
+  const [saving, setSaving]         = useState(false);
+  const [idKey, setIdKey]           = useState(0);
+  const [photoKey, setPhotoKey]     = useState(0);
 
   async function submit() {
-    if (!idCard) { toast.error(lang === 'ar' ? 'يرجى تحميل صورة الهوية' : 'Please upload your ID card'); return; }
-    if (!photo)  { toast.error(lang === 'ar' ? 'يرجى تحميل صورتك الشخصية' : 'Please upload your selfie photo'); return; }
+    if (!idCard)       { toast.error(lang === 'ar' ? 'يرجى تحميل صورة الهوية' : 'Please upload your ID card'); return; }
+    if (!photo)        { toast.error(lang === 'ar' ? 'يرجى تحميل صورتك الشخصية' : 'Please upload your selfie photo'); return; }
+    if (!signatureData){ toast.error(lang === 'ar' ? 'يرجى إضافة توقيعك' : 'Please add your signature'); return; }
     setSaving(true);
-    const r = await apiSubmitVerification(bookingId, idCard, photo);
+    const r = await apiSubmitVerification(bookingId, idCard, photo, signatureData);
     setSaving(false);
     if (r.success) {
       toast.success(lang === 'ar' ? 'تم إرسال طلب التحقق بنجاح' : 'Verification submitted successfully');
@@ -401,13 +508,28 @@ function VerificationModal({ bookingId, onClose, onSuccess }: {
           </div>
         </div>
 
+        {/* Signature */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+              {lang === 'ar' ? 'التوقيع' : 'Signature'} <span className="text-red-400">*</span>
+            </p>
+            <span className="text-[10px] text-gray-400">
+              {lang === 'ar' ? 'ارسم توقيعك بإصبعك أو الماوس' : 'Draw with your finger or mouse'}
+            </span>
+          </div>
+          <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-inner bg-white">
+            <SignaturePad onChange={setSigData} lang={lang} />
+          </div>
+        </div>
+
         {/* Actions */}
         <div className="flex gap-3 pt-1">
           <button onClick={onClose}
             className="flex-1 py-3 text-sm rounded-2xl border border-gray-200 text-gray-600 font-medium hover:bg-gray-50 transition-colors">
             {lang === 'ar' ? 'إلغاء' : 'Cancel'}
           </button>
-          <button onClick={submit} disabled={saving || !idCard || !photo}
+          <button onClick={submit} disabled={saving || !idCard || !photo || !signatureData}
             className="flex-1 flex items-center justify-center gap-2 py-3 text-sm rounded-2xl bg-navy-700 text-white hover:bg-navy-800 disabled:opacity-50 transition-colors font-semibold">
             {saving ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
             {lang === 'ar' ? 'إرسال للمراجعة' : 'Submit for Review'}
