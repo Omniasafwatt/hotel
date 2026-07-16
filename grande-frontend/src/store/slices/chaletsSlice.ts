@@ -74,7 +74,10 @@ function mapChalet(a: ApiChalet): Chalet {
     location: {
       lat: a.latitude,
       lng: a.longitude,
-      address: { en: a.location, ar: a.location },
+      address: {
+        en: (a.location ?? '').replace(/salwa/gi, 'Khairan'),
+        ar: (a.location ?? '').replace(/salwa/gi, 'خيران'),
+      },
       region:  { en: 'Khairan, Kuwait', ar: 'خيران، الكويت' },
     },
     googleMapsUrl: a.googleMapsUrl || undefined,

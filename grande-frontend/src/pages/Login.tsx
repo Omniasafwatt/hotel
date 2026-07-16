@@ -43,13 +43,17 @@ export function Login() {
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-        {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-gold-500 flex items-center justify-center mx-auto mb-3">
-            <span className="text-white font-bold text-2xl">ف</span>
+          <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 rounded-full bg-gold-50 border border-gold-200">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
+            <span className="text-xs font-medium text-gold-600 tracking-widest uppercase">Grande Beach</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">{t('auth.login_title')}</h1>
-          <p className="text-gray-500 text-sm mt-1">{t('auth.login_subtitle')}</p>
+          <h1 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-gray-900 via-gold-600 to-gray-700 bg-clip-text text-transparent">
+            {t('auth.login_title')}
+          </h1>
+          <div className="mx-auto mt-3 h-px w-16 bg-gradient-to-r from-transparent via-gold-400 to-transparent" />
+          <p className="text-gray-400 text-sm mt-3">{t('auth.login_subtitle')}</p>
         </div>
 
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-7">
