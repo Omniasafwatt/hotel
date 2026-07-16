@@ -1,6 +1,6 @@
 ﻿import { useState, useRef, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Search, Star, Shield, Clock, Award, ChevronLeft, ChevronRight, MapPin, X, CheckCircle, Quote, MessageCircle, Globe } from 'lucide-react';
+import { Search, Star, Shield, Award, ChevronLeft, ChevronRight, MapPin, X, CheckCircle, Quote, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../hooks/useAppSelector';
