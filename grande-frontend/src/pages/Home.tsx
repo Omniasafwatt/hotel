@@ -240,7 +240,14 @@ export function Home() {
     const v = videoRef.current;
     if (!v) return;
     v.muted = true;
-    v.play().catch(() => {});
+    const tryPlay = () => { v.play().catch(() => {}); };
+    tryPlay();
+    v.addEventListener('canplay', tryPlay);
+    v.addEventListener('loadedmetadata', tryPlay);
+    return () => {
+      v.removeEventListener('canplay', tryPlay);
+      v.removeEventListener('loadedmetadata', tryPlay);
+    };
   }, []);
 
   const [searchCheckIn, setSearchCheckIn] = useState('');
@@ -280,7 +287,7 @@ export function Home() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative min-h-[720px] flex flex-col items-center justify-center overflow-hidden bg-black">
+      <section className="relative min-h-[720px] flex flex-col items-center justify-center overflow-hidden">
         <video
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"
@@ -289,6 +296,7 @@ export function Home() {
           muted
           loop
           playsInline
+          preload="auto"
         />
         <div className="absolute inset-0 bg-black/20" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
