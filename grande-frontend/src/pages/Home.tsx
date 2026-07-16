@@ -1,6 +1,6 @@
 ﻿import { useState, useRef, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Search, Star, Shield, Clock, Award, ChevronLeft, ChevronRight, MapPin, X, CheckCircle, Quote } from 'lucide-react';
+import { Search, Star, Shield, Clock, Award, ChevronLeft, ChevronRight, MapPin, X, CheckCircle, Quote, MessageCircle, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../hooks/useAppSelector';
@@ -278,10 +278,10 @@ export function Home() {
   }
 
   const features = [
-    { icon: Shield, title: { en: 'Secure Booking', ar: 'حجز آمن' }, desc: { en: '100% secure payments with Tap, Deema & Taly', ar: 'مدفوعات آمنة 100% عبر Tap وDeema وTaly' } },
-    { icon: Clock, title: { en: 'Flexible Cancellation', ar: 'إلغاء مرن' }, desc: { en: 'Free cancellation up to 7 days before check-in', ar: 'إلغاء مجاني حتى 7 أيام قبل الوصول' } },
-    { icon: Award, title: { en: 'Loyalty Rewards', ar: 'مكافآت الولاء' }, desc: { en: 'Earn points with every stay, redeem for discounts', ar: 'اكسب نقاطاً مع كل إقامة وتحويلها لخصومات' } },
-    { icon: Star, title: { en: 'Premium Quality', ar: 'جودة متميزة' }, desc: { en: 'Hand-picked luxury chalets with 5-star service', ar: 'شاليهات فاخرة مختارة بعناية مع خدمة 5 نجوم' } },
+    { icon: CheckCircle, title: { en: 'Online Booking Request', ar: 'طلب حجز أونلاين' }, desc: { en: 'Submit your booking request in minutes — our team reviews and confirms it directly.', ar: 'أرسل طلب حجزك في دقائق ويقوم فريقنا بمراجعته وتأكيده مباشرة.' } },
+    { icon: Shield, title: { en: 'Identity Verification', ar: 'التحقق من الهوية' }, desc: { en: 'Guests submit their ID, selfie and digital signature for a safe and verified stay.', ar: 'يقدّم الضيوف هويتهم وصورتهم وتوقيعهم الرقمي لإقامة آمنة وموثّقة.' } },
+    { icon: Award, title: { en: 'Loyalty Points', ar: 'نقاط الولاء' }, desc: { en: 'Earn points with every stay and unlock Bronze, Silver, Gold and Platinum tiers.', ar: 'اكسب نقاطاً مع كل إقامة وارقَ بين مستويات البرونز والفضة والذهب والبلاتين.' } },
+    { icon: Globe, title: { en: 'Arabic & English', ar: 'عربي وإنجليزي' }, desc: { en: 'Fully bilingual platform — switch between Arabic and English at any time.', ar: 'منصة ثنائية اللغة بالكامل — انتقل بين العربية والإنجليزية في أي وقت.' } },
   ];
 
   return (
