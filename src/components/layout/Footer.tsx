@@ -18,7 +18,7 @@ export function Footer() {
             <div className="flex items-center gap-2.5 mb-4">
               <div className="h-10 w-10 rounded-full border border-gold-400 overflow-hidden flex-shrink-0 bg-white">
                 <img
-                  src="/grand.jpg"
+                  src="/grand.png"
                   alt="Grande Beach Al Khiran"
                   className="h-full w-full object-contain"
                 />
