@@ -3,14 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { format, parseISO } from 'date-fns';
 import toast from 'react-hot-toast';
+import { Tag, Loader2, CheckCircle, X } from 'lucide-react';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useAppDispatch } from '../hooks/useAppDispatch';
-import { setPaymentMethod, setCurrentApiBooking, clearDraft } from '../store/slices/bookingSlice';
+import { setPaymentMethod, setCurrentApiBooking, clearDraft, applyPromo } from '../store/slices/bookingSlice';
 import { submitBooking } from '../store/slices/bookingSlice';
 import { updateLoyaltyPoints } from '../store/slices/authSlice';
 import { PaymentMethodSelector } from '../components/payment/PaymentMethod';
 import { PricingSummary } from '../components/booking/PricingSummary';
 import { Button } from '../components/ui/Button';
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL as string;
+
+async function validatePromoCode(code: string): Promise<{ success: boolean; discount: number; message: string }> {
+  try {
+    const token = localStorage.getItem('access_token') ?? '';
+    const res = await fetch(`${API_BASE}/api/Promotions/validate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+      body: JSON.stringify({ code }),
+    });
+    const json = await res.json() as { success?: boolean; message?: string; data?: { discountAmount?: number; discountPercentage?: number } };
+    if (!res.ok || !json.success) return { success: false, discount: 0, message: json.message || 'Invalid promo code' };
+    return { success: true, discount: json.data?.discountAmount ?? 0, message: json.message || 'Promo applied' };
+  } catch { return { success: false, discount: 0, message: 'Network error' }; }
+}
 export function Checkout() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -22,6 +39,8 @@ export function Checkout() {
   const { user } = useAppSelector((s) => s.auth);
   const apiAddons = useAppSelector((s) => s.addons.items);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [promoInput, setPromoInput]     = useState(draft.promoCode ?? '');
+  const [promoLoading, setPromoLoading] = useState(false);
 
   if (!chalet || !draft.pricing || !draft.checkIn || !draft.checkOut) {
     return (
@@ -42,6 +61,25 @@ export function Checkout() {
   const addonsTotal = selectedAddonLines.reduce((s, a) => s + a.price, 0);
   const grandTotal = draft.pricing.total + addonsTotal;
   const amountToPay = draft.paymentPlan === 'partial' ? Math.round(grandTotal * 0.3) : grandTotal;
+
+  async function handleApplyPromo() {
+    const code = promoInput.trim().toUpperCase();
+    if (!code) return;
+    setPromoLoading(true);
+    const r = await validatePromoCode(code);
+    setPromoLoading(false);
+    if (r.success) {
+      dispatch(applyPromo({ code, discount: r.discount }));
+      toast.success(r.message);
+    } else {
+      toast.error(r.message);
+    }
+  }
+
+  function handleRemovePromo() {
+    dispatch(applyPromo({ code: '', discount: 0 }));
+    setPromoInput('');
+  }
 
   // Map frontend payment method → API provider name
   function mapProvider(m: string | null): string {
@@ -109,6 +147,46 @@ export function Checkout() {
               {draft.checkOut && format(parseISO(draft.checkOut), 'dd MMM yyyy')}
               {' · '}{draft.guests} guests
             </p>
+          </div>
+
+          {/* Promo code */}
+          <div className="space-y-2">
+            <p className="text-sm font-semibold text-gray-700 flex items-center gap-1.5">
+              <Tag size={14} className="text-gold-500" />
+              {lang === 'ar' ? 'كود الخصم' : 'Promo Code'}
+            </p>
+            {draft.promoCode ? (
+              <div className="flex items-center justify-between bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2.5">
+                <div className="flex items-center gap-2">
+                  <CheckCircle size={15} className="text-emerald-500" />
+                  <span className="text-sm font-semibold text-emerald-700">{draft.promoCode}</span>
+                  {(draft.promoDiscount ?? 0) > 0 && (
+                    <span className="text-xs text-emerald-600">−{draft.promoDiscount} KWD</span>
+                  )}
+                </div>
+                <button onClick={handleRemovePromo} className="text-emerald-400 hover:text-red-500 transition-colors">
+                  <X size={15} />
+                </button>
+              </div>
+            ) : (
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={promoInput}
+                  onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
+                  onKeyDown={(e) => e.key === 'Enter' && handleApplyPromo()}
+                  placeholder={lang === 'ar' ? 'أدخل كود الخصم…' : 'Enter promo code…'}
+                  className="flex-1 px-3 py-2 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gold-400 bg-white uppercase tracking-widest"
+                />
+                <button
+                  onClick={handleApplyPromo}
+                  disabled={!promoInput.trim() || promoLoading}
+                  className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-xl bg-gold-500 text-white hover:bg-gold-600 disabled:opacity-50 transition-colors"
+                >
+                  {promoLoading ? <Loader2 size={14} className="animate-spin" /> : (lang === 'ar' ? 'تطبيق' : 'Apply')}
+                </button>
+              </div>
+            )}
           </div>
 
           <PaymentMethodSelector

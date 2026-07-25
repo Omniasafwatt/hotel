@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import {
   ShieldCheck, ShieldX, Clock, CheckCircle, XCircle, RefreshCw,
   Loader2, X, Eye, User, Mail, Phone, Calendar, AlertCircle,
-  ChevronLeft, ChevronRight, ImageIcon, Filter,
+  ChevronLeft, ChevronRight, ImageIcon, Filter, Download,
 } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 import toast from 'react-hot-toast';
@@ -203,7 +203,20 @@ function DetailModal({ userId, onClose, onAction }: { userId: string; onClose: (
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg flex flex-col max-h-[90vh]">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 flex-shrink-0">
           <h2 className="text-base font-semibold text-gray-900">Verification Details</h2>
-          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400"><X size={16} /></button>
+          <div className="flex items-center gap-1">
+            {data && (
+              <a
+                href={`${API_BASE}/api/admin/verification/${data.id}/pdf`}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Download PDF"
+                className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors"
+              >
+                <Download size={16} />
+              </a>
+            )}
+            <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400"><X size={16} /></button>
+          </div>
         </div>
 
         {loading ? (

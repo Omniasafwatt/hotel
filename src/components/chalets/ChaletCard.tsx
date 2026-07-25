@@ -23,8 +23,9 @@ export function ChaletCard({ chalet, className }: ChaletCardProps) {
 
   return (
     <>
-      <div
-        className={cn('bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col', className)}
+      <Link
+        to={`/chalets/${chalet.id}`}
+        className={cn('block bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer', className)}
       >
         {/* Main image */}
         <div className="relative overflow-hidden aspect-[4/3] bg-gray-100">
@@ -85,16 +86,14 @@ export function ChaletCard({ chalet, className }: ChaletCardProps) {
               <span className="text-gray-400 text-sm"> {t('common.sar')}{t('chalets.per_night')}</span>
             </div>
             <div className="flex gap-2">
-              <Link to={`/chalets/${chalet.id}`}>
-                <Button variant="outline" size="sm">{t('chalets.view_details')}</Button>
-              </Link>
-              <Button size="sm" onClick={() => setRequestOpen(true)}>
+              <Button variant="outline" size="sm">{t('chalets.view_details')}</Button>
+              <Button size="sm" onClick={(e) => { e.preventDefault(); setRequestOpen(true); }}>
                 {t('chalets.book_now')}
               </Button>
             </div>
           </div>
         </div>
-      </div>
+      </Link>
 
       <RequestModal
         isOpen={requestOpen}

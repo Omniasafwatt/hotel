@@ -206,6 +206,23 @@ export function loginWithAPI(payload: {
 }
 export const { loginStart, loginSuccess, loginFailure, logout, continueAsGuest, updateLoyaltyPoints, clearError } = authSlice.actions;
 
+// ─── LOGOUT THUNK ─────────────────────────────────────────────────────────────
+// POST /api/Auth/logout — invalidates the token server-side, then clears local state
+export function logoutWithAPI() {
+  return async (dispatch: (a: ReturnType<typeof authSlice.actions.logout>) => void) => {
+    try {
+      const token = localStorage.getItem('access_token');
+      if (token) {
+        await fetch(`${API_BASE}/api/Auth/logout`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        });
+      }
+    } catch { /* silent — always clear local state even if API fails */ }
+    dispatch(authSlice.actions.logout());
+  };
+}
+
 // ─── UPDATE PROFILE THUNK ────────────────────────────────────────────────────
 // PUT /api/Auth/profile
 export function updateProfile(payload: {

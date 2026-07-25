@@ -4,7 +4,7 @@ import { Menu, X, Globe, User, LogOut, LayoutDashboard, ChevronDown, CalendarDay
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { logout } from '../../store/slices/authSlice';
+import { logoutWithAPI } from '../../store/slices/authSlice';
 import { setLanguage } from '../../store/slices/uiSlice';
 import { setLanguage as applyLanguage } from '../../i18n';
 import { cn } from '../../utils/cn';
@@ -30,7 +30,7 @@ export function Header() {
   };
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logoutWithAPI() as unknown as Parameters<typeof dispatch>[0]);
     navigate('/');
   };
 
