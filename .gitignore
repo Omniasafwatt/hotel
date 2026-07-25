@@ -1,0 +1,5 @@
+node_modules/
+dist/
+grande-frontend/
+.DS_Store
+*.local
