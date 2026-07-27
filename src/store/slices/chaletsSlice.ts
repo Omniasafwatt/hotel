@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, createSelector, type PayloadAction } from '@reduxjs/toolkit';
 import type { Chalet, ChaletFilters, ChaletType } from '../../types';
-import { localImagesForChalet } from '../../data/chaletImages';
 
 function mapTypeToApi(type: ChaletType | 'all'): string | undefined {
   if (type === 'all') return undefined;
@@ -16,6 +15,14 @@ interface ApiAmenity {
   name: string;
   nameAr: string;
   icon: string;
+}
+
+interface ApiImage {
+  id: string;
+  url: string;
+  altText: string;
+  isPrimary: boolean;
+  sortOrder: number;
 }
 
 interface ApiChalet {
@@ -45,6 +52,7 @@ interface ApiChalet {
   averageRating: number;
   totalReviews: number;
   amenities: ApiAmenity[];
+  images?: ApiImage[];
 }
 
 // ── Mapper ───────────────────────────────────────────────────────────────────
@@ -62,7 +70,16 @@ function mapChalet(a: ApiChalet): Chalet {
     description: { en: a.description, ar: a.descriptionAr },
     type: mapType(a.type),
     basePrice: a.basePrice,
-    images: localImagesForChalet(a.name),
+    images: a.images
+      ? [...a.images]
+          .filter((img) => img.url.includes('digitaloceanspaces.com'))
+          .sort((x, y) => {
+            if (x.isPrimary && !y.isPrimary) return -1;
+            if (!x.isPrimary && y.isPrimary) return 1;
+            return x.sortOrder - y.sortOrder;
+          })
+          .map((img) => img.url)
+      : [],
     bedrooms: [
       ...Array.from({ length: a.masterBedrooms }, () => ({ type: 'master' as const, beds: 1,                    hasEnsuite: true  })),
       ...Array.from({ length: a.singleBedrooms }, () => ({ type: 'single' as const, beds: a.bedsPerSingleBedroom, hasEnsuite: false })),

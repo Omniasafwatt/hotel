@@ -50,7 +50,8 @@ export function ChaletCard({ chalet, className }: ChaletCardProps) {
             </div>
           )}
         </div>
-        {/* Thumbnail strip — only when API returns multiple images */}
+
+        {/* Thumbnail strip */}
         {chalet.images.length > 1 && (
           <div className="grid grid-cols-3 gap-2 mt-3">
             {chalet.images.slice(1, 4).map((img, index) => (

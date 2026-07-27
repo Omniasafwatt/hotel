@@ -25,6 +25,8 @@ export function ManageUsers() {
   const [search, setSearch] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [togglingId, setTogglingId] = useState<string | null>(null);
+  // API doesn't return isActive — track it locally after each toggle
+  const [localActive, setLocalActive] = useState<Record<string, boolean>>({});
   const [showAdd, setShowAdd] = useState(false);
   const [saving, setSaving] = useState(false);
   const [newUser, setNewUser] = useState({
@@ -47,19 +49,24 @@ export function ManageUsers() {
       u.lastName?.toLowerCase().includes(q) ||
       u.email?.toLowerCase().includes(q);
     const userRole = (u.roles?.[0] ?? '').toLowerCase();
-    const matchRole = roleFilter === 'all' || userRole === roleFilter.toLowerCase();
+    const matchRole =
+      roleFilter === 'all' ||
+      (roleFilter === 'guest' && (userRole === 'guest' || userRole === 'user')) ||
+      (roleFilter === 'admin' && userRole === 'admin');
     return matchSearch && matchRole;
   });
 
   async function handleToggle(u: typeof apiUsers[0]) {
+    const currentlyActive = localActive[u.id] ?? u.isActive ?? false;
     setTogglingId(u.id);
-    const fn = u.isActive ? deactivateUser : activateUser;
+    const fn = currentlyActive ? deactivateUser : activateUser;
     const result = await fn(u.id);
     if (result.success) {
-      toast.success(u.isActive
-        ? (lang === 'ar' ? 'تم تعطيل المستخدم' : 'User deactivated')
-        : (lang === 'ar' ? 'تم تفعيل المستخدم' : 'User activated'));
-      reload();
+      const nowActive = !currentlyActive;
+      setLocalActive((prev) => ({ ...prev, [u.id]: nowActive }));
+      toast.success(nowActive
+        ? (lang === 'ar' ? 'تم تفعيل المستخدم' : 'User activated')
+        : (lang === 'ar' ? 'تم تعطيل المستخدم' : 'User deactivated'));
     } else {
       toast.error(result.message || 'Failed');
     }
@@ -106,7 +113,7 @@ export function ManageUsers() {
           >
             <option value="all">{lang === 'ar' ? 'جميع الأدوار' : 'All Roles'}</option>
             <option value="admin">Admin</option>
-            <option value="user">{lang === 'ar' ? 'مستخدم' : 'User'}</option>
+            <option value="guest">{lang === 'ar' ? 'ضيف' : 'Guest'}</option>
           </select>
           <Button variant="outline" size="sm" onClick={reload} isLoading={usersLoading}>
             <RefreshCw size={14} />
@@ -153,8 +160,9 @@ export function ManageUsers() {
                 </td></tr>
               ) : (
                 filtered.map((u) => {
-                  const role = (u.roles?.[0] ?? 'User').toLowerCase();
+                  const role = (u.roles?.[0] ?? 'Guest').toLowerCase();
                   const isAdmin = role === 'admin';
+                  const isActive = localActive[u.id] ?? u.isActive ?? false;
                   const initials = `${u.firstName?.[0] ?? ''}${u.lastName?.[0] ?? ''}`.toUpperCase();
                   return (
                     <tr key={u.id} className="hover:bg-gray-50 transition-colors">
@@ -180,21 +188,22 @@ export function ManageUsers() {
                       </td>
                       <td className="px-4 py-3 text-gray-600">{u.totalBookings ?? 0}</td>
                       <td className="px-4 py-3">
-                        <Badge variant={u.isActive ? 'green' : 'red'} size="sm">
-                          {u.isActive ? (lang === 'ar' ? 'نشط' : 'Active') : (lang === 'ar' ? 'معطّل' : 'Inactive')}
+                        <Badge variant={isActive ? 'green' : 'red'} size="sm">
+                          {isActive ? (lang === 'ar' ? 'نشط' : 'Active') : (lang === 'ar' ? 'معطّل' : 'Inactive')}
                         </Badge>
                       </td>
                       <td className="px-4 py-3">
-                        {u.id !== currentUser?.id && (
-                          <button
-                            onClick={() => handleToggle(u)}
-                            disabled={togglingId === u.id}
-                            className={`transition-colors disabled:opacity-40 ${u.isActive ? 'text-green-500 hover:text-green-700' : 'text-gray-300 hover:text-gray-500'}`}
-                            title={u.isActive ? 'Deactivate' : 'Activate'}
-                          >
-                            {u.isActive ? <ToggleRight size={24} /> : <ToggleLeft size={24} />}
-                          </button>
-                        )}
+                        <button
+                          onClick={() => u.id !== currentUser?.id && handleToggle(u)}
+                          disabled={togglingId === u.id || u.id === currentUser?.id}
+                          className={`transition-colors disabled:opacity-30 ${
+                            u.id === currentUser?.id ? 'cursor-not-allowed text-gray-200' :
+                            isActive ? 'text-green-500 hover:text-red-500' : 'text-red-400 hover:text-green-500'
+                          }`}
+                          title={u.id === currentUser?.id ? 'Cannot toggle own account' : isActive ? 'Click to deactivate' : 'Click to activate'}
+                        >
+                          {isActive ? <ToggleRight size={26} /> : <ToggleLeft size={26} />}
+                        </button>
                       </td>
                     </tr>
                   );

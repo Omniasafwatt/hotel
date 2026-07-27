@@ -158,7 +158,8 @@ export const fetchAdminUsers = createAsyncThunk(
     const res = await adminFetch(`${API_BASE}/api/admin/users?page=${p}&pageSize=${ps}${roleQ}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
-    return (json.data?.items ?? json.data ?? []) as ApiAdminUser[];
+    const raw = (json.data?.items ?? json.data ?? []) as ApiAdminUser[];
+    return raw;
   },
 );
 
@@ -291,7 +292,7 @@ export async function activateUser(userId: string): Promise<{ success: boolean; 
   try {
     const res = await adminFetch(`${API_BASE}/api/admin/users/${userId}/activate`, { method: 'POST' });
     const json = await safeJson(res);
-    return { success: res.ok && !!json.success, message: json.message as string | undefined };
+    return { success: res.ok, message: (json.message as string | undefined) || (res.ok ? undefined : extractError(json, res.status)) };
   } catch { return { success: false, message: 'Network error' }; }
 }
 
@@ -299,7 +300,7 @@ export async function deactivateUser(userId: string): Promise<{ success: boolean
   try {
     const res = await adminFetch(`${API_BASE}/api/admin/users/${userId}/deactivate`, { method: 'POST' });
     const json = await safeJson(res);
-    return { success: res.ok && !!json.success, message: json.message as string | undefined };
+    return { success: res.ok, message: (json.message as string | undefined) || (res.ok ? undefined : extractError(json, res.status)) };
   } catch { return { success: false, message: 'Network error' }; }
 }
 

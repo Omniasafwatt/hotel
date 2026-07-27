@@ -45,8 +45,8 @@ export function AdminLayout() {
       >
         {/* Logo */}
         <div className={cn('flex items-center gap-2 h-16 px-4 border-b border-navy-700', collapsed && 'justify-center')}>
-          <div className="w-8 h-8 rounded-full border border-gold-400 overflow-hidden flex-shrink-0 bg-white">
-            <img src="/grand.png" alt="Grande Beach" className="h-full w-full object-contain" />
+          <div className="w-10 h-10 rounded-full border border-gold-400 overflow-hidden flex-shrink-0">
+            <img src="/grand.jpg" alt="Grande Beach" className="h-full w-full object-cover" />
           </div>
           {!collapsed && <span className="font-bold text-sm">GrandeBeach Admin</span>}
         </div>

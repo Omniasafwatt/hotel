@@ -48,11 +48,11 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
-            <div className="h-10 w-10 rounded-full border border-gold-400 overflow-hidden flex-shrink-0 bg-white">
+            <div className="h-12 w-12 rounded-full border border-gold-400 overflow-hidden flex-shrink-0">
               <img
-                src="/grand.png"
+                src="/grand.jpg"
                 alt="Grande Beach Al Khiran"
-                className="h-full w-full object-contain"
+                className="h-full w-full object-cover"
               />
             </div>
             <div className="flex flex-col leading-none">

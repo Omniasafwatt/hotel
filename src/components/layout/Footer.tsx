@@ -16,11 +16,11 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="h-10 w-10 rounded-full border border-gold-400 overflow-hidden flex-shrink-0 bg-white">
+              <div className="h-12 w-12 rounded-full border border-gold-400 overflow-hidden flex-shrink-0">
                 <img
-                  src="/grand.png"
+                  src="/grand.jpg"
                   alt="Grande Beach Al Khiran"
-                  className="h-full w-full object-contain"
+                  className="h-full w-full object-cover"
                 />
               </div>
               <div className="flex flex-col leading-none">
