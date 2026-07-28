@@ -12,16 +12,62 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL as string;
 
 function getToken() { return localStorage.getItem('access_token') ?? ''; }
 
-async function authFetch(url: string, init: RequestInit = {}) {
-  const token = getToken();
-  return fetch(url, {
-    ...init,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(init.headers as Record<string, string> ?? {}),
-    },
-  });
+function authHeaders(token?: string) {
+  const t = token ?? getToken();
+  return { 'Content-Type': 'application/json', ...(t ? { Authorization: `Bearer ${t}` } : {}) };
+}
+
+let _refreshInFlight: Promise<string | null> | null = null;
+async function refreshToken(): Promise<string | null> {
+  if (_refreshInFlight) return _refreshInFlight;
+  const rt = localStorage.getItem('refresh_token');
+  if (!rt) return null;
+  _refreshInFlight = (async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/Auth/refresh`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken: rt }),
+      });
+      if (!res.ok) return null;
+      const json = await res.json();
+      if (json.success && json.data?.accessToken) {
+        localStorage.setItem('access_token', json.data.accessToken);
+        if (json.data.refreshToken) localStorage.setItem('refresh_token', json.data.refreshToken);
+        return json.data.accessToken as string;
+      }
+      return null;
+    } catch { return null; }
+    finally { _refreshInFlight = null; }
+  })();
+  return _refreshInFlight;
+}
+
+async function authFetch(url: string, init: RequestInit = {}): Promise<Response> {
+  let res = await fetch(url, { ...init, headers: authHeaders() });
+  if (res.status === 401) {
+    const newToken = await refreshToken();
+    if (newToken) res = await fetch(url, { ...init, headers: authHeaders(newToken) });
+  }
+  return res;
+}
+
+async function downloadPdf(verificationId: string) {
+  try {
+    const res = await fetch(`${API_BASE}/api/admin/verification/${verificationId}/pdf`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+    if (!res.ok) { toast.error('Failed to download PDF'); return; }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `verification-${verificationId}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch { toast.error('Download failed'); }
 }
 
 async function safeJson(res: Response): Promise<Record<string, unknown>> {
@@ -90,7 +136,7 @@ async function apiReviewVerification(verificationId: string, approve: boolean, r
       body: JSON.stringify({ approve, rejectionReason: rejectionReason ?? '' }),
     });
     const json = await safeJson(res);
-    return { success: res.ok && Boolean(json.success), message: json.message as string };
+    return { success: res.ok, message: json.message as string };
   } catch { return { success: false, message: 'Network error' }; }
 }
 
@@ -205,15 +251,13 @@ function DetailModal({ userId, onClose, onAction }: { userId: string; onClose: (
           <h2 className="text-base font-semibold text-gray-900">Verification Details</h2>
           <div className="flex items-center gap-1">
             {data && (
-              <a
-                href={`${API_BASE}/api/admin/verification/${data.id}/pdf`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => downloadPdf(data.id)}
                 title="Download PDF"
                 className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors"
               >
                 <Download size={16} />
-              </a>
+              </button>
             )}
             <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400"><X size={16} /></button>
           </div>
