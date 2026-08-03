@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAppSelector } from './hooks/useAppSelector';
 import { useAppDispatch } from './hooks/useAppDispatch';
@@ -9,30 +9,32 @@ import AOS from "aos";
 import 'aos/dist/aos.css';
 import { Layout } from './components/layout/Layout';
 import { AdminLayout } from './components/layout/AdminLayout';
-import { Home } from './pages/Home';
-import { Chalets } from './pages/Chalets';
-import { ChaletDetail } from './pages/ChaletDetail';
-import { Booking } from './pages/Booking';
-import { Checkout } from './pages/Checkout';
-import { Confirmation } from './pages/Confirmation';
-import { Login } from './pages/Login';
-import { Register } from './pages/Register';
-import { Profile } from './pages/Profile';
-import { MyBookings } from './pages/MyBookings';
-import { AdminDashboard } from './pages/admin/Dashboard';
-import { ManageBookings } from './pages/admin/ManageBookings';
-import { ManageChalets } from './pages/admin/ManageChalets';
-import { ManagePricing } from './pages/admin/ManagePricing';
-import { ManageUsers } from './pages/admin/ManageUsers';
-import { ManagePromotions } from './pages/admin/ManagePromotions';
-import { ManageReviews } from './pages/admin/ManageReviews';
-import { ManageVerification } from './pages/admin/ManageVerification';
-import { Brands } from './pages/Brands';
-import { Contact } from './pages/Contact';
-import { Reviews } from './pages/Reviews';
-import { ForgotPassword } from './pages/ForgotPassword';
-import { ResetPassword } from './pages/ResetPassword';
-import { NotFound } from './pages/NotFound';
+
+const Home             = lazy(() => import('./pages/Home').then(m => ({ default: m.Home })));
+const Chalets          = lazy(() => import('./pages/Chalets').then(m => ({ default: m.Chalets })));
+const ChaletDetail     = lazy(() => import('./pages/ChaletDetail').then(m => ({ default: m.ChaletDetail })));
+const Booking          = lazy(() => import('./pages/Booking').then(m => ({ default: m.Booking })));
+const Checkout         = lazy(() => import('./pages/Checkout').then(m => ({ default: m.Checkout })));
+const Confirmation     = lazy(() => import('./pages/Confirmation').then(m => ({ default: m.Confirmation })));
+const Login            = lazy(() => import('./pages/Login').then(m => ({ default: m.Login })));
+const Register         = lazy(() => import('./pages/Register').then(m => ({ default: m.Register })));
+const Profile          = lazy(() => import('./pages/Profile').then(m => ({ default: m.Profile })));
+const MyBookings       = lazy(() => import('./pages/MyBookings').then(m => ({ default: m.MyBookings })));
+const Brands           = lazy(() => import('./pages/Brands').then(m => ({ default: m.Brands })));
+const Contact          = lazy(() => import('./pages/Contact').then(m => ({ default: m.Contact })));
+const Reviews          = lazy(() => import('./pages/Reviews').then(m => ({ default: m.Reviews })));
+const ForgotPassword   = lazy(() => import('./pages/ForgotPassword').then(m => ({ default: m.ForgotPassword })));
+const ResetPassword    = lazy(() => import('./pages/ResetPassword').then(m => ({ default: m.ResetPassword })));
+const NotFound         = lazy(() => import('./pages/NotFound').then(m => ({ default: m.NotFound })));
+
+const AdminDashboard   = lazy(() => import('./pages/admin/Dashboard').then(m => ({ default: m.AdminDashboard })));
+const ManageBookings   = lazy(() => import('./pages/admin/ManageBookings').then(m => ({ default: m.ManageBookings })));
+const ManageChalets    = lazy(() => import('./pages/admin/ManageChalets').then(m => ({ default: m.ManageChalets })));
+const ManagePricing    = lazy(() => import('./pages/admin/ManagePricing').then(m => ({ default: m.ManagePricing })));
+const ManageUsers      = lazy(() => import('./pages/admin/ManageUsers').then(m => ({ default: m.ManageUsers })));
+const ManagePromotions = lazy(() => import('./pages/admin/ManagePromotions').then(m => ({ default: m.ManagePromotions })));
+const ManageReviews    = lazy(() => import('./pages/admin/ManageReviews').then(m => ({ default: m.ManageReviews })));
+const ManageVerification = lazy(() => import('./pages/admin/ManageVerification').then(m => ({ default: m.ManageVerification })));
 
 // Redirects unauthenticated users (including guests) to /login.
 // Saves the page they tried to visit so Login can send them back after success.
@@ -78,6 +80,7 @@ function AppRouter() {
   }, [location.pathname]);
 
   return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-4 border-gold-400 border-t-transparent rounded-full animate-spin" /></div>}>
     <Routes>
       {/* Public routes */}
       <Route element={<Layout />}>
@@ -111,6 +114,7 @@ function AppRouter() {
         <Route path="verification" element={<ManageVerification />} />
       </Route>
     </Routes>
+    </Suspense>
   );
 }
 
